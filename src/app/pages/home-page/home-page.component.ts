@@ -24,4 +24,8 @@ export class HomePageComponent implements OnInit {
     )
   }
 
+  doLeaving(a: any) {
+    console.log("I am leaving ");
+  }
+
 }
