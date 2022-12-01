@@ -31,6 +31,7 @@ export class DataResolver implements Resolve<boolean> {
         return of(null);
       }
       ));
+      console.log('t')
       return(this.r);
   }
 }

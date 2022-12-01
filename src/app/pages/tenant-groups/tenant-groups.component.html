@@ -2,6 +2,11 @@
     <app-mist-header [user]="data.user" (leavingPage)="doLeaving($event);"></app-mist-header>
     <div class="container-fluid" style="background-color: whitesmoke; min-height: 300px;">
         <app-local-top-navbar></app-local-top-navbar>
+         <app-table-list-component 
+            [data]="data.list" 
+            [format]="format" 
+            (buttonClicked)="buttonClicked($event)" 
+            (editClicked)="editClicked($event)"></app-table-list-component>
     </div>
     <app-mist-footer></app-mist-footer>
 </div>

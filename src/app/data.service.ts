@@ -18,17 +18,14 @@ export class DataService {
   constructor(private http: HttpClient) { 
 
     this.production = 'N';
-    this.localPath = "assets/data/"
-    this.remotePath = "https://myna-api.com/api/"
+    this.localPath = "assets/data/index.php"
+    this.remotePath = "https://myna-api.com/api/active-shooter.php"
   
     if (this.production=='N') {
-      this.path = this.remotePath;
-      this.url = this.path + "active-shooter.php"
+      this.url = this.remotePath;
     } else {
-      this.path = this.localPath;
-      this.url = this.path + "spart.php"
+      this.url = this.localPath;
     }
-
   }
 
   getLocalStorage() {
@@ -42,13 +39,26 @@ export class DataService {
   getData(path: any) {
     const data = {
        "q": path,           
-       "uid": this.uid
+       "uid": this.uid,
+       "sql": ""
     }
     this.getLocalStorage();
     this.t = this.http.post(this.url, data);
     return this.t; 
   }
  
+  getDataSQL(sql: any) {
+    const data = {
+       "q": 'sql',           
+       "uid": this.uid,
+       "sql": sql
+    }
+    this.getLocalStorage();
+    this.t = this.http.post(this.url, data);
+    console.log(this.t);
+    return this.t; 
+  }
+
   postForm(formID: any, formData: any[]) {
       this.getLocalStorage();
       const data = {

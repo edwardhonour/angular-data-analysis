@@ -14,6 +14,11 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 import { MistHeaderComponent } from './components/mist-header/mist-header.component';
 import { MistFooterComponent } from './components/mist-footer/mist-footer.component';
+import { TableListComponentComponent } from './components/table-list-component/table-list-component.component';
+import { TenantGroupsComponent } from './pages/tenant-groups/tenant-groups.component';
+import { BasicFormComponentComponent } from './components/basic-form-component/basic-form-component.component';
+import { EditTenantGroupComponent } from './pages/edit-tenant-group/edit-tenant-group.component';
+import { LocalTopNavbarComponent } from './components/local-top-navbar/local-top-navbar.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +26,12 @@ import { MistFooterComponent } from './components/mist-footer/mist-footer.compon
     HomePageComponent,
     LandingPageComponent,
     MistHeaderComponent,
-    MistFooterComponent
+    MistFooterComponent,
+    TableListComponentComponent,
+    TenantGroupsComponent,
+    BasicFormComponentComponent,
+    EditTenantGroupComponent,
+    LocalTopNavbarComponent
   ],
   imports: [
     BrowserModule,
