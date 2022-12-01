@@ -20,47 +20,56 @@
                 </div>
             </div>
             <div class="row p-2">
+                <div class="col-md-3">IN/LIKE</div>
+                <div class="col-md-9">
+                    <select type="text" id="LN" [(ngModel)]="formData['LN']" class="form-control">
+                        <option value="IN">IN</option>
+                        <option value="LIKE">LIKE</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row p-2">
                 <div class="col-md-3">Agencies:</div>
                 <div class="col-md-2">
                     <input type="text" id="AGENCY_1" [(ngModel)]="formData['AGENCY_1']" class="form-control">
                 </div>
-                <div class="col-md-2">
+                <div *ngIf="formData['LN']=='IN'" class="col-md-2">
                     <input type="text" id="AGENCY_2" [(ngModel)]="formData['AGENCY_2']" class="form-control">
                 </div>
-                <div class="col-md-2">
+                <div  *ngIf="formData['LN']=='IN'" class="col-md-2">
                     <input type="text" id="AGENCY_3" [(ngModel)]="formData['AGENCY_3']" class="form-control">
                 </div>
-                <div class="col-md-2">
+                <div  *ngIf="formData['LN']=='IN'" class="col-md-2">
                     <input type="text" id="AGENCY_4" [(ngModel)]="formData['AGENCY_4']" class="form-control">
                 </div>
             </div>
             <div class="row p-2">
                 <div class="col-md-3"></div>
-                <div class="col-md-2">
+                <div  *ngIf="formData['LN']=='IN'" class="col-md-2">
                     <input type="text" id="AGENCY_5" [(ngModel)]="formData['AGENCY_5']" class="form-control">
                 </div>
-                <div class="col-md-2">
+                <div  *ngIf="formData['LN']=='IN'" class="col-md-2">
                     <input type="text" id="AGENCY_6" [(ngModel)]="formData['AGENCY_6']" class="form-control">
                 </div>
-                <div class="col-md-2">
+                <div  *ngIf="formData['LN']=='IN'" class="col-md-2">
                     <input type="text" id="AGENCY_7" [(ngModel)]="formData['AGENCY_7']" class="form-control">
                 </div>
-                <div class="col-md-2">
+                <div  *ngIf="formData['LN']=='IN'" class="col-md-2">
                     <input type="text" id="AGENCY_8" [(ngModel)]="formData['AGENCY_8']" class="form-control">
                 </div>
             </div>
             <div class="row p-2">
                 <div class="col-md-3"></div>
-                <div class="col-md-2">
+                <div  *ngIf="formData['LN']=='IN'" class="col-md-2">
                     <input type="text" id="AGENCY_9" [(ngModel)]="formData['AGENCY_9']" class="form-control">
                 </div>
-                <div class="col-md-2">
+                <div  *ngIf="formData['LN']=='IN'" class="col-md-2">
                     <input type="text" id="AGENCY_10" [(ngModel)]="formData['AGENCY_10']" class="form-control">
                 </div>
-                <div class="col-md-2">
+                <div  *ngIf="formData['LN']=='IN'" class="col-md-2">
                     <input type="text" id="AGENCY_11" [(ngModel)]="formData['AGENCY_11']" class="form-control">
                 </div>
-                <div class="col-md-2">
+                <div  *ngIf="formData['LN']=='IN'" class="col-md-2">
                     <input type="text" id="AGENCY_12" [(ngModel)]="formData['AGENCY_12']" class="form-control">
                 </div>
             </div>

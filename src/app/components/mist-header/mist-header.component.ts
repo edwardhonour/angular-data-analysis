@@ -10,6 +10,7 @@ export class MistHeaderComponent implements OnInit {
   @Input() user: any;
   loading: string='';
   url: any;
+  page: string = 'today.asp';
   constructor() { }
 
   ngOnInit(): void {
@@ -23,16 +24,19 @@ export class MistHeaderComponent implements OnInit {
   @Output() 
   leavingPage: EventEmitter<string> = new EventEmitter<string>();
 
-  doMIST(page: any) {
+  doMIST() {
     this.url = new URL(window.location.href);
     const baseUrl = this.url.origin;
-    location.href = baseUrl + '/' + page;
+    location.href = baseUrl + '/' + this.page;
   }
   
-  gotoMIST(page: any) {
+  gotoMIST(p: any) {
     this.loading='Y';
-    this.leavingPage.emit('Y');
-    setTimeout(this.doMIST, 500); 
+    this.url = new URL(window.location.href);
+    const baseUrl = this.url.origin;
+    location.href = baseUrl + '/' + p;
+    //this.leavingPage.emit('Y');
+    //setTimeout(this.doMIST, 500); 
   }
 
 }
