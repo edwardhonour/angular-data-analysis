@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-local-top-navbar',
@@ -8,8 +8,11 @@ import { Component, OnInit } from '@angular/core';
 export class LocalTopNavbarComponent implements OnInit {
 
   constructor() { }
+  
+  @Input() id: any;
 
   ngOnInit(): void {
+
   }
 
 }

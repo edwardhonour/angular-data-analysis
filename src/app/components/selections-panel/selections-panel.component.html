@@ -1,0 +1,26 @@
+<div class="card my-2">
+    <div class="card-header">
+        Selection Criteria
+    </div>
+    <div *ngIf="data.option_selection.length>0" class="card-body">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-condensed table-striped">
+                 <tbody>
+                   <tr  class="p-2" *ngFor="let m of data.option_selection"> 
+                        <td style="font-size:12px;" [innerHTML]="m.OPTION_DSC"></td>
+                        <td (click)="buttonClick(m);">(-)</td>
+                    </tr> 
+                  </tbody> 
+                </table>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="data.option_selection.length==0" class="card-body">
+        <p>No criteria selected!</p>
+    </div>
+</div>
+
+
+
+

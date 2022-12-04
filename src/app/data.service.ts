@@ -14,12 +14,13 @@ export class DataService {
   url: any;
   t: any;
   uid: any;
+  rnum: any;
 
   constructor(private http: HttpClient) { 
 
-    this.production = 'Y';
+    this.production = 'N';
     this.localPath = "assets/data/index.php"
-    this.remotePath = "https://myna-api.com/api/active-shooter.php"
+    this.remotePath = "https://myna-api.com/api/da.php"
   
     if (this.production=='N') {
       this.url = this.remotePath;
@@ -34,12 +35,21 @@ export class DataService {
     } else {
       this.uid = localStorage.getItem('uid');
     }
+    //
+    //-- RNUM is data analysis specific.
+    //
+    if (localStorage.getItem('rnum')===null) {
+      this.rnum = "";
+    } else {
+      this.rnum = localStorage.getItem('rnum');
+    }
   }
 
   getData(path: any) {
     const data = {
        "q": path,           
        "uid": this.uid,
+       "rnum": this.rnum,
        "sql": ""
     }
     this.getLocalStorage();
@@ -48,12 +58,14 @@ export class DataService {
   }
  
   getDataSQL(sql: any) {
+    this.getLocalStorage();
     const data = {
        "q": 'sql',           
        "uid": this.uid,
+       "rnum": this.rnum,
        "sql": sql
     }
-    this.getLocalStorage();
+
     this.t = this.http.post(this.url, data);
     console.log(this.t);
     return this.t; 
@@ -64,6 +76,7 @@ export class DataService {
       const data = {
         "q": formID, 
         "data": formData,
+        "rnum": this.rnum,
         "uid": this.uid
       }
       this.t=this.http.post(this.url,data);

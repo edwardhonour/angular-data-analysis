@@ -1,0 +1,13 @@
+<div class="card my-2">
+    <div class="card-header">
+        Facility Filters Selected
+    </div>
+    <div class="card-body">
+        <div *ngIf="data.filter_selection.length>0" class="card-body">
+            *Filters Panel Works*
+        </div>
+        <div *ngIf="data.option_selection.length==0" class="card-body">
+                <p>No filters selected!</p>
+        </div>
+    </div>
+</div>

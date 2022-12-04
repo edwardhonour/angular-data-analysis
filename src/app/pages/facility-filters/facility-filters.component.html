@@ -1,0 +1,18 @@
+<div class="container-fluid p-3" style="background-color:#17213f">
+    <app-mist-header [user]="data.user" (leavingPage)="doLeaving($event);"></app-mist-header>
+    <div class="container-fluid" style="background-color: whitesmoke; min-height: 300px;">
+        <app-local-top-navbar [id]="page_id"></app-local-top-navbar>
+        <div class="row">
+            <div class="col-md-3">
+                <app-filter-accordion [id]="page_id" (buttonPressed)="getCriteriaCategory($event)"></app-filter-accordion>
+            </div>
+            <div class="col-md-9">
+                <div class="col-md-12 p-3">
+                    <h1 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 32px;">Facility Filters</h1>
+                    <h2 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 18px;">Select a Category</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-mist-footer></app-mist-footer>
+</div>

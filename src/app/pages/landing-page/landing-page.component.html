@@ -1,7 +1,54 @@
 <div class="container-fluid p-3" style="background-color:#17213f">
     <app-mist-header [user]="data.user" (leavingPage)="doLeaving($event);"></app-mist-header>
     <div class="container-fluid" style="background-color: whitesmoke; min-height: 300px;">
-        <app-local-top-navbar></app-local-top-navbar>
+        <app-local-top-navbar [id]="page_id"></app-local-top-navbar>
+        <div class="row">
+            <div class="col-md-3">
+                <app-bootstrap-accordion [id]="page_id" (buttonPressed)="getCriteriaCategory($event)"></app-bootstrap-accordion>
+                <app-save-search></app-save-search>
+                <app-share-report></app-share-report>
+                <app-threat-dataset></app-threat-dataset>
+            </div>
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-12 p-3">
+                        <h1 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 32px;">Data Analysis</h1>
+                        <h2 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 18px;">Select a Category</h2>
+                    </div>
+                    <div class="col-md-11 m-3" style="background-color:#e1e0d0">
+                        <button class="btn btn-warning m-2">Start New Report</button>
+                        <button (click)="selectOperator(1);" class="btn btn-outline-primary">(</button>
+                        <button (click)="selectOperator(2);" class="btn btn-outline-primary">)</button>
+                        <button (click)="selectOperator(3);" class="btn btn-outline-primary">AND</button>
+                        <button (click)="selectOperator(4);" class="btn btn-outline-primary">OR</button>
+                        <button (click)="selectOperator(5);" class="btn btn-outline-primary">AND NOT</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 p-2">
+                        <app-criteria-search [data]="data" (buttonClicked)="doCriteriaSearch($event)"></app-criteria-search>
+                        <div class="row m-2 p-2" style="background-color:#e1e0d0">
+                            <div class="col-md-3">
+                                Criteria Search: 
+                            </div>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text">
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-secondary">Search</button>
+                            </div>
+                        </div>
+                        <app-criteria-panel [data]="data" (buttonClicked)="selectCriteria($event)"></app-criteria-panel>
+                    </div>
+                    <div class="col-md-5">
+                        <app-count-panel [data]="data"></app-count-panel>
+                        <app-selections-panel [data]="data" (buttonClicked)="deleteCriteria($event)"></app-selections-panel>
+                        <app-filters-panel [data]="data" (buttonClicked)="deleteFilter($event)"></app-filters-panel>
+                        <app-columns-panel [data]="data" (buttonClicked)="deleteColumn($event)"></app-columns-panel>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <app-mist-footer></app-mist-footer>
 </div>
