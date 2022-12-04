@@ -7,12 +7,12 @@ import { DataService } from 'src/app/data.service';
   styleUrls: ['./criteria-search.component.css']
 })
 export class CriteriaSearchComponent implements OnInit, OnChanges {
-  constructor(private dataService: DataService) { }
+  constructor(private _dataService: DataService) { }
   
       @Input() format: any;  // JSON Array laying out the structure of the component.
       @Input() data: any;    // DATA Array from parent component.
       p: any;                // Pagination Page
-      term: any;             // Search Filter
+      search: any;             // Search Filter
       list: any;
 
       ngOnInit(): void {
@@ -33,22 +33,24 @@ export class CriteriaSearchComponent implements OnInit, OnChanges {
 
     ngOnChanges() {
         this.list=this.data;
-        if (this.format.sql!=='') {
-            this.dataService.getDataSQL(this.format.sql).subscribe( (data: any) => {
-                this.list=data.list;
-                console.log('this');
-                console.log(this.list);
-                console.log('here');
-            });
-       
-        }
+    }
+
+    performSearch() {
+        this.data.searchData.SEARCH = this.search;
+        this._dataService.postForm("perform-criteria-search", this.data.searchData).subscribe((data:any)=>{
+            this.data=data;
+            this.searchData.emit(this.data);
+        });
     }
 
     @Output()
     buttonClicked: EventEmitter<string> = new EventEmitter<string>(); 
 
     @Output()
-    editClicked: EventEmitter<string> = new EventEmitter<any>(); 
+    editClicked: EventEmitter<any> = new EventEmitter<any>(); 
+
+    @Output()
+    searchData: EventEmitter<any> = new EventEmitter<any>(); 
 
 }
 

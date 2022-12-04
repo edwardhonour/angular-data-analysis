@@ -7,7 +7,7 @@ import { DataService } from 'src/app/data.service';
   styleUrls: ['./selections-panel.component.css']
 })
 export class SelectionsPanelComponent implements OnInit , OnChanges {
-  constructor(private dataService: DataService) { }
+  constructor(private _dataService: DataService) { }
   
       @Input() format: any;  // JSON Array laying out the structure of the component.
       @Input() data: any;    // DATA Array from parent component.
@@ -19,10 +19,16 @@ export class SelectionsPanelComponent implements OnInit , OnChanges {
 
       }
 
-    buttonClick(n: any) {
-       // One of the top buttons is click. The 'value' field is 
-      // returned to the parent component.
-      this.buttonClicked.emit(n);
+    buttonClick(m: any) {
+      // 
+      // Select a critera option from the list.
+      //
+          this.data.optionData.OPTIONID = m.OPTIONID
+          this.data.optionData.CAT_ID=m.ID;
+          this._dataService.postForm("delete-criteria-option", this.data.optionData).subscribe((data:any)=>{
+          this.data=data;
+          this.getData.emit(this.data);
+      });
     }
 
     editClick(m: any) {
@@ -33,19 +39,10 @@ export class SelectionsPanelComponent implements OnInit , OnChanges {
 
     ngOnChanges() {
         this.list=this.data;
-        if (this.format.sql!=='') {
-            this.dataService.getDataSQL(this.format.sql).subscribe( (data: any) => {
-                this.list=data.list;
-                console.log('this');
-                console.log(this.list);
-                console.log('here');
-            });
-       
-        }
     }
 
     @Output()
-    buttonClicked: EventEmitter<any> = new EventEmitter<any>(); 
+    getData: EventEmitter<any> = new EventEmitter<any>(); 
 
   @Output()
   editClicked: EventEmitter<string> = new EventEmitter<any>(); 

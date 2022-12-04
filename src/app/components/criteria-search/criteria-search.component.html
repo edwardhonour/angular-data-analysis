@@ -1,1 +1,5 @@
-<p>criteria-search works!</p>
+<div class="row m-2 p-2" style="background-color: #e1e0d0;">
+    <div class="col-md-4"> Criteria Search: </div>
+    <div class="col-md-5"><input (keydown.enter)="performSearch()" [(ngModel)]="search" type="text" class="form-control"></div>
+    <div class="col-md-2"><button (click)="performSearch()" class="btn btn-secondary">Search</button></div>
+</div>

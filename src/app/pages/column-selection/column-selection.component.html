@@ -11,6 +11,17 @@
                     <h1 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 32px;">Column Selection</h1>
                     <h2 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 18px;">Select report columns</h2>
                 </div>
+                <div class="row">
+                    <div class="col-md-6 p-2">
+                        <app-filters-panel [data]="data" (buttonClicked)="selectCriteria($event)"></app-filters-panel>
+                    </div>
+                    <div class="col-md-5">
+                        <app-count-panel [data]="data"></app-count-panel>
+                        <app-selections-panel [data]="data" (buttonClicked)="deleteCriteria($event)"></app-selections-panel>
+                        <app-filters-panel [data]="data"></app-filters-panel>
+                        <app-columns-panel [data]="data"></app-columns-panel>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

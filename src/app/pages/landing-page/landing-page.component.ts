@@ -29,7 +29,7 @@ export class LandingPageComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-
+    console.log(this.data);
   }
 
     doLeaving(a: any) {
@@ -44,16 +44,7 @@ export class LandingPageComponent implements OnInit, OnChanges {
       this._router.navigate(['/edit-tenant-group',0]);
     }
 
-    selectCriteria(m: any) {
-      // 
-      // Select a critera option from the list.
-      //
-          this.data.optionData.OPTIONID = m.OPTIONID
-          this.data.optionData.CAT_ID=m.OPTION_ID;
-          this._dataService.postForm("select-criteria-option", this.data.optionData).subscribe((data:any)=>{
-          this.data=data;
-      });
-    }
+
 
   selectOperator(m: any) {
       //
@@ -67,41 +58,11 @@ export class LandingPageComponent implements OnInit, OnChanges {
   });
 }
 
-   deleteCriteria(m: any) {
-    //
-    // Remove a selection criteria from the list.
-    //
-    this.data.optionData.OPTIONID = m.OPTION_ID
-    this.data.optionData.OPTION_VALUE=m.ID;
-    this._dataService.postForm("delete-criteria-option", this.data.optionData).subscribe((data:any)=>{
-    this.data=data;
-  });
-  }
-
-  deleteFilter(m: any) {
-    //
-    // Remove a selection filter from the list.
-    //
-    this.data.optionData.OPTIONID = m.OPTION_ID
-    this.data.optionData.CAT_ID=m.ID;
-    this._dataService.postForm("delete-criteria-filter", this.data.optionData).subscribe((data:any)=>{
-    this.data=data;
-  });
-  }
 
   doCriteriaSearch(m:any) {
-    
+
   }
-  deleteColumn(m: any) {
-    //
-    // Remove a report column from the list.
-    //
-    this.data.optionData.OPTIONID = m.OPTION_ID
-    this.data.optionData.CAT_ID=m.OPTION_ID;
-    this._dataService.postForm("delete-criteria-column", this.data.optionData).subscribe((data:any)=>{
-    this.data=data;
-  });
-  }
+
 
   getResultCount() {
     //
@@ -126,7 +87,10 @@ export class LandingPageComponent implements OnInit, OnChanges {
           this.data=data;
       });
     }
-
+    getData(m: any) {
+      this.data=m;
+    }
+   
     getCriteriaSearch(i: any) {
       this.data.formData.CAT_ID=i;
       this._dataService.postForm("get-criteria-search", this.data.formData).subscribe((data:any)=>{
