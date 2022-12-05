@@ -1,7 +1,7 @@
 <div class="container-fluid p-3" style="background-color:#17213f">
     <app-mist-header [user]="data.user" (leavingPage)="doLeaving($event);"></app-mist-header>
     <div class="container-fluid" style="background-color: whitesmoke; min-height: 300px;">
-        <app-local-top-navbar [id]="page_id"></app-local-top-navbar>
+        <app-local-top-navbar [id]="page_id" [data]="data"></app-local-top-navbar>
         <div class="row">
             <div class="col-md-3">
                 <app-column-accordion [id]="page_id" (buttonPressed)="getCriteriaCategory($event)"></app-column-accordion>

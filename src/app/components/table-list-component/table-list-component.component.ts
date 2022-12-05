@@ -36,15 +36,15 @@ export class TableListComponentComponent implements OnInit, OnChanges {
 
     ngOnChanges() {
         this.list=this.data;
-        if (this.format.sql!=='') {
-            this.dataService.getDataSQL(this.format.sql).subscribe( (data: any) => {
-                this.list=data.list;
-                console.log('this');
-                console.log(this.list);
-                console.log('here');
-            });
-       
-        }
+      //  if (this.format.sql!=='') {
+      //      this.dataService.getDataSQL(this.format.sql).subscribe( (data: any) => {
+      //          this.list=data.list;
+      //          console.log('this');
+      ///          console.log(this.list);
+       //         console.log('here');
+       //     });
+     //  
+     //   }
     }
 
     @Output()

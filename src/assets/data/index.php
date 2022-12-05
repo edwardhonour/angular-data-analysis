@@ -1,7 +1,7 @@
-﻿<?php
+<?php
 //---------------------------------------------------------------------
 // Main API Router for this angular directory.
-// Author:  Edward Honour
+// Author: Â Edward Honour
 // Date: 07/18/2021
 //---------------------------------------------------------------------
 
@@ -26,7 +26,7 @@ $db=$X->connectACN();
 // APPLICATION SPECIFIC CODE BELOW - CONNECT STRING CODE ABOVE
 //=======================================================================================
 
-class MIST {
+class DA {
 
     public $X;
     public $json;
@@ -34,7 +34,6 @@ class MIST {
     function __construct() {
          $this->X=new OracleDB();
     }
-
     function getUser($data) {
             if (!isset($data['uid'])) $data['uid']="55009";
             if ($data['uid']=="") $data['uid']="55009";
@@ -49,14 +48,6 @@ class MIST {
             }
             return $u;
     }
-function getSQL($data) {
-     $sql=$data['sql'];
-     $list=$this->X->sql($sql);
-     $output=array();
-     $output['list']=$list;
-     return $output;
-}
-
 
     function isJSON($string){
        return is_string($string) && is_array(json_decode($string, true)) ? true : false;
@@ -72,174 +63,425 @@ function getSQL($data) {
         return $arr;
     }
 
-function getHomePage($data) {
-      $output=array();
-      $user=$this->getUser($data);
-      $output['user']=$user;
-      return $output;
-}
 
-function postEditTenantGroup($d) {
-        $data=$d['data'];
-        $post=array();
-        $post['table_name']="FPS_TENANT_GROUP";
-        $post['ID']=$data['ID'];
-        $post['TENANT_GROUP']=$data['TENANT_GROUP'];
-        $post['GROUP_NAME']=$data['GROUP_NAME'];
 
-        if ($data['LN']=='IN') {
-            $subquery="(SELECT DISTINCT BUILDING_NUMBER FROM REXUS_TENANTS WHERE AGENCY_CODE IN (";
-            if ($data['AGENCY_1']!='') $subquery.="'" . $data['AGENCY_1'] . "'";
-            if ($data['AGENCY_2']!='') $subquery.=",'" . $data['AGENCY_2'] . "'";
-            if ($data['AGENCY_3']!='') $subquery.=",'" . $data['AGENCY_3'] . "'";
-            if ($data['AGENCY_4']!='') $subquery.=",'" . $data['AGENCY_4'] . "'";
-            if ($data['AGENCY_5']!='') $subquery.=",'" . $data['AGENCY_5'] . "'";
-            if ($data['AGENCY_6']!='') $subquery.=",'" . $data['AGENCY_6'] . "'";
-            if ($data['AGENCY_7']!='') $subquery.=",'" . $data['AGENCY_7'] . "'";
-            if ($data['AGENCY_8']!='') $subquery.=",'" . $data['AGENCY_8'] . "'";
-            if ($data['AGENCY_9']!='') $subquery.=",'" . $data['AGENCY_9'] . "'";
-            if ($data['AGENCY_10']!='') $subquery.=",'" . $data['AGENCY_10'] . "'";
-            if ($data['AGENCY_11']!='') $subquery.=",'" . $data['AGENCY_11'] . "'";
-            if ($data['AGENCY_12']!='') $subquery.=",'" . $data['AGENCY_12'] . "'";
-            $subquery.=")"; 
-        } else {
-           $subquery="(SELECT DISTINCT BUILDING_NUMBER FROM REXUS_TENANTS WHERE AGENCY_CODE LIKE '" . $data['AGENCY_1'] . "')";
-        }
+    function getRNum() {
+        return 1000;
+    }
 
-        $post['SUBQUERY']=$subquery;
-        $this->X->post($post); 
+    function startNewReport($data) {
+         $data['rnum']=$this->getRNum();
+         $output=$this->getHomePage($data);
+         return $output;
+    }
 
-        $sql="delete from FPS_TENANT_GROUP_AGENCY WHERE TENANT_GROUP = '" . $data['TENANT_GROUP'] . "'";
-        $this->X->execute($sql);
+    function selectCriteriaOption($data) {
+         $data['id']=$data['data']['WEIGHT_ID'];
+         $post=array();
+         $post['table_name']="RWH_USER_SELECTION";
+         $post['action']="insert";
+         $post['RNUM']=$data['rnum'];
+         $post['OPTION_ID']=$data['data']['OPTIONID'];
 
-if ($data['LN']=='IN') {    
-        if ($data['AGENCY_1']!='') {
-                $sql="INSERT INTO FPS_TENANT_GROUP_AGENCY (TENANT_GROUP, AGENCY_CODE) VALUES ('" . $data['TENANT_GROUP'] . "','" . $data['AGENCY_1'] . "')";
-                $this->X->execute($sql);
-        }
-        if ($data['AGENCY_2']!='') {
-                $sql="INSERT INTO FPS_TENANT_GROUP_AGENCY (TENANT_GROUP, AGENCY_CODE) VALUES ('" . $data['TENANT_GROUP'] . "','" . $data['AGENCY_2'] . "')";
-                $this->X->execute($sql);
-        }
-        if ($data['AGENCY_3']!='') {
-                $sql="INSERT INTO FPS_TENANT_GROUP_AGENCY (TENANT_GROUP, AGENCY_CODE) VALUES ('" . $data['TENANT_GROUP'] . "','" . $data['AGENCY_3'] . "')";
-                $this->X->execute($sql);
-        }
-        if ($data['AGENCY_4']!='') {
-                $sql="INSERT INTO FPS_TENANT_GROUP_AGENCY (TENANT_GROUP, AGENCY_CODE) VALUES ('" . $data['TENANT_GROUP'] . "','" . $data['AGENCY_4'] . "')";
-                $this->X->execute($sql);
-        }
-        if ($data['AGENCY_5']!='') {
-                $sql="INSERT INTO FPS_TENANT_GROUP_AGENCY (TENANT_GROUP, AGENCY_CODE) VALUES ('" . $data['TENANT_GROUP'] . "','" . $data['AGENCY_5'] . "')";
-                $this->X->execute($sql);
-        }
-        if ($data['AGENCY_6']!='') {
-                $sql="INSERT INTO FPS_TENANT_GROUP_AGENCY (TENANT_GROUP, AGENCY_CODE) VALUES ('" . $data['TENANT_GROUP'] . "','" . $data['AGENCY_6'] . "')";
-                $this->X->execute($sql);
-        }
-        if ($data['AGENCY_7']!='') {
-                $sql="INSERT INTO FPS_TENANT_GROUP_AGENCY (TENANT_GROUP, AGENCY_CODE) VALUES ('" . $data['TENANT_GROUP'] . "','" . $data['AGENCY_7'] . "')";
-                $this->X->execute($sql);
-        }
-        if ($data['AGENCY_8']!='') {
-                $sql="INSERT INTO FPS_TENANT_GROUP_AGENCY (TENANT_GROUP, AGENCY_CODE) VALUES ('" . $data['TENANT_GROUP'] . "','" . $data['AGENCY_8'] . "')";
-                $this->X->execute($sql);
-        }
-       if ($data['AGENCY_9']!='') {
-                $sql="INSERT INTO FPS_TENANT_GROUP_AGENCY (TENANT_GROUP, AGENCY_CODE) VALUES ('" . $data['TENANT_GROUP'] . "','" . $data['AGENCY_9'] . "')";
-                $this->X->execute($sql);
-        }
-        if ($data['AGENCY_10']!='') {
-                $sql="INSERT INTO FPS_TENANT_GROUP_AGENCY (TENANT_GROUP, AGENCY_CODE) VALUES ('" . $data['TENANT_GROUP'] . "','" . $data['AGENCY_10'] . "')";
-                $this->X->execute($sql);
-        }
-        if ($data['AGENCY_11']!='') {
-                $sql="INSERT INTO FPS_TENANT_GROUP_AGENCY (TENANT_GROUP, AGENCY_CODE) VALUES ('" . $data['TENANT_GROUP'] . "','" . $data['AGENCY_11'] . "')";
-                $this->X->execute($sql);
-        }
-        if ($data['AGENCY_12']!='') {
-                $sql="INSERT INTO FPS_TENANT_GROUP_AGENCY (TENANT_GROUP, AGENCY_CODE) VALUES ('" . $data['TENANT_GROUP'] . "','" . $data['AGENCY_12'] . "')";
-                $this->X->execute($sql);
-        }
-} else {
-   $sql="INSERT INTO FPS_TENANT_GROUP_AGENCY (TENANT_GROUP, AGENCY_CODE) SELECT '" . $data['TENANT_GROUP'] . "', AGENCY_CODE FROM REXUS_TENANTS WHERE ";
-   $sql.=" AGENCY_CODE LIKE '" . $data['AGENCY_1'] . "'";
-   $this->X->execute($sql);
-}
+         $sql="select count(*) as C from RWH_USER_SELECTION WHERE RNUM = " . $post['RNUM'] . " AND OPTION_ID = '" . $post['OPTION_ID'] . "'";
+         $g=$this->X->sql($sql);
+         $c=$g[0]['C'];
 
-$output=array();
-        $output['error_code']="0";
-        return $output;
-}
+         if ($c==0||$post['OPTION_ID']=='1'||$post['OPTION_ID']=='2'||$post['OPTION_ID']=='3'||$post['OPTION_ID']=='4'||$post['OPTION_ID']=='5') {
+             $sql="select count(*) as C from RWH_USER_SELECTION WHERE RNUM = " . $post['RNUM'];
+             $g=$this->X->sql($sql);
+             $c=$g[0]['C'];
+             $post['OPTION_ORDER']=$c+1;
+             $this->X->post($post);
+         }
 
-    function getEditTenantGroup($data) {
+         $output=$this->getHomePage($data);
+         return $output;
+  }
+
+
+    function deleteCriteriaFilter($data) {
+
+    }
+
+    function deleteCriteriaColumn($data) {
+
+    }
+
+    function deleteCriteriaOption($data) {
+         $data['id']=$data['data']['WEIGHT_ID'];
+         $rnum=$data['data']['RNUM'];
+         $sql="delete from RWH_USER_SELECTION WHERE RNUM = " . $rnum . " AND ID = " . $data['data']['CAT_ID'];
+         $this->X->execute($sql);
+         $sql="select * from RWH_USER_SELECTION WHERE RNUM = " . $rnum . " ORDER BY OPTION_ORDER";
+         $templates=$this->X->sql($sql);
+         $i=0;
+         foreach($templates as $t) {
+             $i++;
+             $sql="UPDATE RWH_USER_SELECTION SET OPTION_ORDER = " . $i . " WHERE ID = " . $t['ID'];
+             $this->X->execute($sql);
+         }
+         $output=$this->getHomePage($data);
+         return $output;
+    }
+
+    function getCriteriaCategory($data) {
+         $data['id']=$data['data']['CAT_ID'];
+         $output=$this->getHomePage($data);
+         return $output;
+    }
+
+    function getUserSelections($data) {
+
+            $rnum=$data['rnum'];
+
+            $sql="select * from RWH_USER_SELECTION WHERE RNUM = " . $rnum . " ORDER BY OPTION_ORDER";
+            $list=$this->X->sql($sql);
+            $o=array();
+
+            foreach($list as $t) {
+                    $tt=array();
+                    $tt['ID']=$t['ID'];
+                    $tt['OPTION_ID']=$t['OPTION_ID'];
+                    $sql="select OPTION_DSC FROM RWH_DA_OPTIONS WHERE OPTIONID = '" . $tt['OPTION_ID'] . "'";
+                    $h=$this->X->sql($sql);
+                    $tt['OPTION_DSC']=$h[0]['OPTION_DSC'];
+                    array_push($o,$tt);
+            }
+            return $o;
+
+    }
+
+    function getFilterSelections($data) {
+
+            $rnum=$data['rnum'];
+            $sql="select * from RWH_FILTER_SELECTION WHERE RNUM = " . $rnum . " ORDER BY OPTION_ORDER";
+            $templates=$this->X->sql($sql);
+            return $templates;
+
+    }
+
+    function getColumnSelections($data) {
+
+            $rnum=$data['rnum'];
+            $sql="select * from RWH_COLUMN_SELECTION WHERE RNUM = " . $rnum . " ORDER BY COLUMN_ORDER";
+            $templates=$this->X->sql($sql);
+            return $templates;
+
+    }
+
+    function getCriteriaCategories($data) {
+
+            $sql="select CAT_ID, LONG_NAME, TITLE FROM RWH_CRITERIA_CATEGORIES WHERE SCORING_TYPE = 'PMI' ORDER BY CAT_ID ";
+            $templates=$this->X->sql($sql);
+            return $templates;
+
+    }
+
+    function getCategoryOptions($id) {
+        $sql="SELECT * FROM RWH_DA_OPTIONS WHERE WEIGHT_ID = '" . $id. "' ORDER BY ID";
+        $options=$this->X->sql($sql);
+        return $options;
+    }
+
+    function getSectionTitle($id) {
+
+            $sql="SELECT * FROM RWH_CRITERIA_CATEGORIES WHERE CAT_ID = '" . $id . "' AND SCORING_TYPE = 'PMI'";
+            $t=$this->X->sql($sql);
+            if (sizeof($t)>0) {
+                    $out=$t[0]['LONG_NAME'];
+            } else {
+                    $out="Please Select a Category";
+            }
+            return $out;
+
+    }
+
+    function getHomePage($data) {
+
+          $output=array();
+          $user=$this->getUser($data);
+          if (isset($data['id'])) { $id=$data['id']; } else { $id=0; }
+          if (isset($data['rnum'])) {
+                  $rnum=$data['rnum'];
+          } else {
+                  $rnum='';
+          }
+          if ($rnum=='') {
+             $rnum=$this->getRNum();
+             $data['rnum']=$rnum;
+          }
+
+          if ($user['forced_off']==1) {
+             $output=array();
+             $output['user']=$user;
+             return $output;
+          } else {
+
             $output=array();
-            $user=$this->getUser($data);
-            $id=$data['id'];
             $output['user']=$user;
-            if ($id=='0') {
-                    $formData=array();
-                    $formData['ID']="";
-                    $formData['GROUP_NAME']="";
-                    $formData['TENANT_GROUP']="";
-		    $formData['LN']="IN";
-                    $formData['AGENCY_1']="";
-                    $formData['AGENCY_2']="";
-                    $formData['AGENCY_3']="";
-                    $formData['AGENCY_4']="";
-                    $formData['AGENCY_5']="";
-                    $formData['AGENCY_6']="";
-                    $formData['AGENCY_7']="";
-                    $formData['AGENCY_8']="";
-                    $formData['AGENCY_9']="";
-                    $formData['AGENCY_10']="";
-                    $formData['AGENCY_11']="";
-                    $formData['AGENCY_12']="";
-             } else {
-                    $formData=array();
-                    $sql="select ID, TENANT_GROUP, GROUP_NAME, SUBQUERY from FPS_TENANT_GROUP WHERE ID = " . $id;
-                    $f=$this->X->sql($sql);
-                    $formData=$f[0];
-			if (strpos($f[0]['SUBQUERY'],"LIKE")) {
-			$formData['LN']="LIKE";
 
-                        $t=$f[0]['SUBQUERY'];
-                        $a=strpos($t,"'");
-                        $b=strpos($t,"'",$a+1);
-			$len=$b-$a-1;
-                        $formData['AGENCY_1']=substr($t,$a+1,$len);
+    
+            if ($id!=""&&$id!=0) {
+                $output['section_title']=$this->getSectionTitle($id);
+                $options=$this->getCategoryOptions($id);
+            } else {
+                $output['section_title']="Please Select a Category";
+                $options=array();
+            }
 
-			} else {
-                        $formData['LN']="IN";
-			$formData['AGENCY_1']="";
-                    }
+            $output['rnum']=$rnum;
+            $output['options']=$options;
 
-                    
- 
-                    $formData['AGENCY_2']="";
-                    $formData['AGENCY_3']="";
-                    $formData['AGENCY_4']="";
-                    $formData['AGENCY_5']="";
-                    $formData['AGENCY_6']="";
-                    $formData['AGENCY_7']="";
-                    $formData['AGENCY_8']="";
-                    $formData['AGENCY_9']="";
-                    $formData['AGENCY_10']="";
-                    $formData['AGENCY_11']="";
-                    $formData['AGENCY_12']="";
-                    if ($formData['LN']=='IN') {
-                        $sql="select AGENCY_CODE FROM FPS_TENANT_GROUP_AGENCY WHERE TENANT_GROUP = '" . $formData['TENANT_GROUP'] . "' ORDER BY AGENCY_CODE";
-                        $g=$this->X->sql($sql);
-                        $i=0;
-                        foreach($g as $h) {
-                            $i++;
-                            $formData['AGENCY_'.$i]=$h['AGENCY_CODE'];
-                        }
-                    }
-             }
+            $output['categories']=$this->getCriteriaCategories($data);
+            $output['option_selection']=$this->getUserSelections($data);
+            $output['filter_selection']=$this->getFilterSelections($data);
+            $output['column_selection']=$this->getColumnSelections($data);
 
-            $output['formData']=$formData;
-            return $output;
+            }
+
+          $searchData=array();
+          $searchData['SEARCH']="";
+          $output['searchData']=$searchData;
+
+          $optionData=array();
+          $optionData['WEIGHT_ID']=$id;
+          $optionData['CAT_ID']=$id;
+          $optionData['RNUM']=$rnum;
+          $optionData['USERNAME']=$output['user']['USER_NAME'];
+          $optionData['NOT_FLAG']="";
+          $optionData['OPTIONID']="";
+          $optionData['OPTION_VALUE']="";
+          $optionData['OPTION_TYPE']="";
+          $output['optionData']=$optionData;
+
+          $filterData=array();
+          $filterData['WEIGHT_ID']=$id;
+          $filterData['ID']="";
+          $filterData['RNUM']=$rnum;
+          $filterData['OPTION_ORDER']="";
+          $filterData['OPTION_TYPE']="";
+          $filterData['OPTION_DESC']="";
+          $filterData['OPTION_EXCLUDE']="";
+          $filterData['OPTION_ID']="";
+          $filterData['CUSTOM1']="";
+          $filterData['CUSTOM2']="";
+          $output['filterData']=$filterData;
+
+          $columnData=array();
+          $columnData['RNUM']=$rnum;
+          $columnData['COLUMN_DSC']="";
+          $columnData['COLUMN_ID']="";
+          $columnData['COLUMN_ORDER']="";
+          $columnData['SCORING_TYPE']="";
+          $output['columnData']=$columnData;
+
+          $formData=array();
+          $formData['CAT_ID']="";
+          $output['formData']=$formData;
+          return $output;
+    }
+
+    function getFilterTitle($id) {
+
+    }
+
+
+    function getFilterOptions($id) {
+
+    }
+
+    function getFilterCategories($data) {
+
+    }
+
+    function getFilterPage($data) {
+
+          $output=array();
+          $user=$this->getUser($data);
+          if (isset($data['id'])) { $id=$data['id']; } else { $id=0; }
+          if (isset($data['rnum'])) { $rnum=$data['rnum']; } else { $rnum=''; }
+          if ($rnum=='') {
+             $rnum=$this->getRNum();
+             $data['rnum']=$rnum;
+          }
+
+          if ($user['forced_off']==1) {
+             $output=array();
+             $output['user']=$user;
+             return $output;
+          } else {
+
+            $output=array();
+            $output['user']=$user;
+
+            if ($id!=""&&$id!=0) {
+                $output['section_title']=$this->getFilterTitle($id);
+                $options=$this->getFilterOptions($id);
+            } else {
+                $output['section_title']="Please Select a Category";
+                $options=array();
+            }
+
+            $output['rnum']=$rnum;
+            $output['options']=$options;
+
+            $output['categories']=$this->getFilterCategories($data);
+            $output['option_selection']=$this->getUserSelections($data);
+            $output['filter_selection']=$this->getFilterSelections($data);
+            $output['column_selection']=$this->getColumnSelections($data);
+
+            }
+          $optionData=array();
+          $optionData['WEIGHT_ID']=$id;
+          $optionData['CAT_ID']=$id;
+          $optionData['RNUM']=$rnum;
+          $optionData['USERNAME']=$output['user']['USER_NAME'];
+          $optionData['NOT_FLAG']="";
+          $optionData['OPTIONID']="";
+          $optionData['OPTION_VALUE']="";
+          $optionData['OPTION_TYPE']="";
+          $output['optionData']=$optionData;
+
+          $filterData=array();
+          $filterData['WEIGHT_ID']=$id;
+          $filterData['ID']="";
+          $filterData['RNUM']=$rnum;
+          $filterData['OPTION_ORDER']="";
+          $filterData['OPTION_TYPE']="";
+          $filterData['OPTION_DESC']="";
+          $filterData['OPTION_EXCLUDE']="";
+          $filterData['OPTION_ID']="";
+          $filterData['CUSTOM1']="";
+          $filterData['CUSTOM2']="";
+          $output['filterData']=$filterData;
+
+          $columnData=array();
+          $columnData['RNUM']=$rnum;
+          $columnData['COLUMN_DSC']="";
+          $columnData['COLUMN_ID']="";
+          $columnData['COLUMN_ORDER']="";
+          $columnData['SCORING_TYPE']="";
+          $output['columnData']=$columnData;
+
+          $formData=array();
+          $formData['CAT_ID']="";
+          $output['formData']=$formData;
+          return $output;
+    }
+
+    function getColumnTitle($id) {
+
+    }
+
+    function getColumnOptions($id) {
+
+    }
+
+    function getColumnCategories($id) {
+
+    }
+
+  function getColumnPage($data) {
+
+          $output=array();
+          $user=$this->getUser($data);
+          if (isset($data['id'])) { $id=$data['id']; } else { $id=0; }
+          if (isset($data['rnum'])) { $rnum=$data['rnum']; } else { $rnum=''; }
+          if ($rnum=='') {
+             $rnum=$this->getRNum();
+             $data['rnum']=$rnum;
+          }
+
+          if ($user['forced_off']==1) {
+             $output=array();
+             $output['user']=$user;
+             return $output;
+          } else {
+
+            $output=array();
+            $output['user']=$user;
+
+            if ($id!=""&&$id!=0) {
+                $output['section_title']=$this->getColumnTitle($id);
+                $options=$this->getColumnOptions($id);
+            } else {
+                $output['section_title']="Please Select a Category";
+                $options=array();
+            }
+
+            $output['rnum']=$rnum;
+            $output['options']=$options;
+
+            $output['categories']=$this->getColumnCategories($data);
+            $output['option_selection']=$this->getUserSelections($data);
+            $output['filter_selection']=$this->getFilterSelections($data);
+            $output['column_selection']=$this->getColumnSelections($data);
+
+            }
+
+          $optionData=array();
+          $optionData['WEIGHT_ID']=$id;
+          $optionData['CAT_ID']=$id;
+          $optionData['RNUM']=$rnum;
+          $optionData['USERNAME']=$output['user']['USER_NAME'];
+          $optionData['NOT_FLAG']="";
+
+          $optionData['OPTIONID']="";
+          $optionData['OPTION_VALUE']="";
+          $optionData['OPTION_TYPE']="";
+          $output['optionData']=$optionData;
+
+          $filterData=array();
+          $filterData['WEIGHT_ID']=$id;
+          $filterData['ID']="";
+          $filterData['RNUM']=$rnum;
+          $filterData['OPTION_ORDER']="";
+          $filterData['OPTION_TYPE']="";
+          $filterData['OPTION_DESC']="";
+          $filterData['OPTION_EXCLUDE']="";
+          $filterData['OPTION_ID']="";
+          $filterData['CUSTOM1']="";
+          $filterData['CUSTOM2']="";
+          $output['filterData']=$filterData;
+
+          $columnData=array();
+          $columnData['RNUM']=$rnum;
+          $columnData['COLUMN_DSC']="";
+          $columnData['COLUMN_ID']="";
+          $columnData['COLUMN_ORDER']="";
+          $columnData['SCORING_TYPE']="";
+          $output['columnData']=$columnData;
+
+          $formData=array();
+          $formData['CAT_ID']="";
+          $output['formData']=$formData;
+          return $output;
+    }
+
+    function getSQL($data) {
+       $sql=$data['sql'];
+       $list=$this->X->sql($sql);
+       $output=array();
+       $output['list']=$list;
+       return $output;
+    }
+
+    function selectCriteriaFilter($data) {
+       print_r($data);
+    }
+
+    function selectCriteriaColumn($data) {
+       print_r($data);
+    }
+
+    function criteriaSearch($data) {
+        $output=$this->getHomePage($data);
+        $sql="SELECT * FROM RWH_DA_OPTIONS WHERE UPPER(OPTION_DSC) LIKE '%" . strtoupper($data['data']['SEARCH']) . "%' ORDER BY ID";
+        $options=$this->X->sql($sql);
+        $output['section_title']="Search Results";
+        $output['options']=$options;
+        return $output;
     }
 
 
@@ -249,10 +491,10 @@ $output=array();
 // BEGIN
 //---
 
-$A=new MIST();
+$A=new DA();
 $data = file_get_contents("php://input");
 $data = json_decode($data, TRUE);
-
+$output=array();
 if (!isset($data['q'])) $data['q']="user";
 $aa=explode("/",$data['q']);
 if (isset($aa[1])) {
@@ -267,19 +509,46 @@ if (isset($aa[1])) {
          $data['id3']=$aa[4];
          }
 }
-
 $output=array();
 
    switch ($data['q']) {
-   	case 'edit-tenant-group':
-           $output=$A->getEditTenantGroup($data);
-           break;
-   	case 'post-edit-tenant-group':
-           $output=$A->postEditTenantGroup($data);
-           break;
-        case 'sql':
-           $output=$A->getSQL($data);
-           break;    
+        case 'get-criteria-category':
+             $output=$A->getCriteriaCategory($data);
+             break;
+        case 'select-criteria-option':
+             $output=$A->selectCriteriaOption($data);
+             break;
+        case 'select-criteria-filter':
+             $output=$A->selectCriteriaFilter($data);
+             break;
+        case 'select-criteria-column':
+             $output=$A->selectCriteriaColumn($data);
+             break;
+        case 'delete-criteria-option':
+             $output=$A->deleteCriteriaOption($data);
+             break;
+        case 'delete-criteria-filter':
+             $output=$A->deleteCriteriaFilter($data);
+             break;
+        case 'delete-criteria-column':
+             $output=$A->deleteCriteriaColumn($data);
+             break;
+        case 'count-results':
+             $output=$A->countResults($data);
+             break;
+        case 'start-new-report':
+             $output=$A->startNewReport($data);
+             break;
+        case 'filter':
+             $output=$A->getFilterPage($data);
+             break;
+        case 'columns':
+             $output=$A->getColumnPage($data);
+             break;
+        case 'perform-criteria-search':
+             $output=$A->criteriaSearch($data);
+             break;
+
         default:
             $output=$A->getHomePage($data);
             break;
@@ -292,5 +561,4 @@ $o=json_encode($output, JSON_HEX_TAG |
         JSON_UNESCAPED_UNICODE);
 
 echo $o;
-
 ?>

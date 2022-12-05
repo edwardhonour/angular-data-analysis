@@ -24,7 +24,7 @@ export class FiltersPanelComponent implements OnInit, OnChanges {
       // Remove a selection filter from the list.
       //
       this.data.optionData.OPTIONID = m.OPTION_ID
-      this.data.optionData.CAT_ID=m.ID;
+      this.data.optionData.ID=m.ID;
       this._dataService.postForm("delete-criteria-filter", this.data.optionData).subscribe((data:any)=>{
       this.data=data;
     });

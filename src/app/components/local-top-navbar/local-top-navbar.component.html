@@ -9,8 +9,8 @@
         <button *ngIf="id!='3'" [routerLink]="['/columns']" class="btn m-2 btn-light">Column Selection</button>
         <button *ngIf="id=='4'" [routerLink]="['/report']" class="btn m-2 btn-dark">Ad-Hoc Report</button>
         <button *ngIf="id!='4'" [routerLink]="['/report']" class="btn m-2 btn-light">Ad-Hoc Report</button>
-        <button *ngIf="id=='5'" [routerLink]="['/excel']" class="btn m-2 btn-dark">Export to Excel</button>
-        <button *ngIf="id!='5'" [routerLink]="['/excel']" class="btn m-2 btn-light">Export to Excel</button>
+        <button *ngIf="id=='5'" (click)="doExcel()" class="btn m-2 btn-dark">Export to Excel</button>
+        <button *ngIf="id!='5'" (click)="doExcel()" class="btn m-2 btn-light">Export to Excel</button>
         <button *ngIf="id=='6'" [routerLink]="['/map']" class="btn m-2 btn-dark">Map</button>
         <button *ngIf="id!='6'" [routerLink]="['/map']" class="btn m-2 btn-light">Map</button>
         <button *ngIf="id=='7'" [routerLink]="['/risk']" class="btn m-2 btn-dark">Risk Profile</button>

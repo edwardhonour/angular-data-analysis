@@ -13,7 +13,8 @@ export class CountPanelComponent implements OnInit, OnChanges {
       @Input() data: any;    // DATA Array from parent component.
       p: any;                // Pagination Page
       term: any;             // Search Filter
-      list: any;
+      results: any;
+      label: string = '0';
 
       ngOnInit(): void {
 
@@ -31,8 +32,17 @@ export class CountPanelComponent implements OnInit, OnChanges {
       this.editClicked.emit(m);
     }
 
+
+    doShow() {
+      alert('show');
+    }
+
     ngOnChanges() {
-        this.list=this.data;
+        this.label="Working...";
+        this.dataService.postForm("do-count", this.data.formData).subscribe((data:any)=>{
+          this.results=data;
+          this.label=data.count;
+      });
     }
 
     @Output()

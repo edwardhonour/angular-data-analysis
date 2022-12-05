@@ -18,7 +18,7 @@ export class DataService {
 
   constructor(private http: HttpClient) { 
 
-    this.production = 'N';
+    this.production = 'Y';
     this.localPath = "assets/data/index.php"
     this.remotePath = "https://myna-api.com/api/da.php"
   
@@ -46,13 +46,15 @@ export class DataService {
   }
 
   getData(path: any) {
+    this.getLocalStorage();
     const data = {
        "q": path,           
        "uid": this.uid,
        "rnum": this.rnum,
        "sql": ""
     }
-    this.getLocalStorage();
+    console.log('BEFORE')
+    console.log(data)
     this.t = this.http.post(this.url, data);
     return this.t; 
   }

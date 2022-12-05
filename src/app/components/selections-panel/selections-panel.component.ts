@@ -24,7 +24,7 @@ export class SelectionsPanelComponent implements OnInit , OnChanges {
       // Select a critera option from the list.
       //
           this.data.optionData.OPTIONID = m.OPTIONID
-          this.data.optionData.CAT_ID=m.ID;
+          this.data.optionData.ID=m.ID;
           this._dataService.postForm("delete-criteria-option", this.data.optionData).subscribe((data:any)=>{
           this.data=data;
           this.getData.emit(this.data);
