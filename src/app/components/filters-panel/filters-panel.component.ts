@@ -9,10 +9,11 @@ import { DataService } from 'src/app/data.service';
 export class FiltersPanelComponent implements OnInit, OnChanges {
   constructor(private _dataService: DataService) { }
   
-      @Input() format: any;  // JSON Array laying out the structure of the component.
-      @Input() data: any;    // DATA Array from parent component.
-      p: any;                // Pagination Page
-      term: any;             // Search Filter
+      @Input() format: any;  
+      @Input() data: any;  
+      @Input() title: any;  
+      p: any;               
+      term: any;             
       list: any;
 
       ngOnInit(): void {

@@ -8,6 +8,7 @@ import { FacilityFiltersComponent } from './pages/facility-filters/facility-filt
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 import { MapOutputComponent } from './pages/map-output/map-output.component';
+import { OptionsListComponent } from './pages/options-list/options-list.component';
 import { ReportOutputComponent } from './pages/report-output/report-output.component';
 import { RiskOutputComponent } from './pages/risk-output/risk-output.component';
 import { TenantGroupsComponent } from './pages/tenant-groups/tenant-groups.component';
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'map', component: MapOutputComponent, resolve: { data: DataResolver } },
   { path: 'risk', component: RiskOutputComponent, resolve: { data: DataResolver } },
   { path: 'tenant-groups', component: TenantGroupsComponent, resolve: { data: DataResolver } },
+  { path: 'options', component: OptionsListComponent, resolve: {data: DataResolver } },
   { path: 'edit-tenant-group/:id', component: EditTenantGroupComponent, resolve: { data: DataResolver } },
 ];
 

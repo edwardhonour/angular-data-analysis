@@ -38,6 +38,13 @@ import { ShareReportComponent } from './components/share-report/share-report.com
 import { ThreatDatasetComponent } from './components/threat-dataset/threat-dataset.component';
 import { CountPanelComponent } from './components/count-panel/count-panel.component';
 import { CriteriaSearchComponent } from './components/criteria-search/criteria-search.component';
+import { OptionsListComponent } from './pages/options-list/options-list.component';
+import { EditOptionsComponent } from './forms/edit-options/edit-options.component';
+import { FormTemplateComponent } from './forms/form-template/form-template.component';
+import { FilterSelectionComponent } from './forms/filter-selection/filter-selection.component';
+import { SelectCriteriaFormComponent } from './forms/select-criteria-form/select-criteria-form.component';
+import { SelectFilterFormComponent } from './forms/select-filter-form/select-filter-form.component';
+import { SelectColumnsFormComponent } from './forms/select-columns-form/select-columns-form.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +76,14 @@ import { CriteriaSearchComponent } from './components/criteria-search/criteria-s
     ShareReportComponent,
     ThreatDatasetComponent,
     CountPanelComponent,
-    CriteriaSearchComponent
+    CriteriaSearchComponent,
+    OptionsListComponent,
+    EditOptionsComponent,
+    FormTemplateComponent,
+    FilterSelectionComponent,
+    SelectCriteriaFormComponent,
+    SelectFilterFormComponent,
+    SelectColumnsFormComponent
   ],
   imports: [
     BrowserModule,

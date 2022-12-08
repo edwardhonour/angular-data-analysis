@@ -1,0 +1,12 @@
+        <app-local-top-navbar [id]="page_id"></app-local-top-navbar>
+        <div *ngIf="adding=='Y'" class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-6">
+                <app-edit-options [formData]="data.formData" (formClose)="formClose($event)" (formComplete)="formComplete($event)"></app-edit-options>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <app-table-list-component [data]="data.list"  (buttonClicked)="buttonClicked($event)" (editClicked)="editClicked($event)" [format]="format"></app-table-list-component>
+            </div>
+        </div>

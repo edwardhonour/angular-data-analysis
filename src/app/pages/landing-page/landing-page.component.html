@@ -1,6 +1,4 @@
-<div class="container-fluid p-3" style="background-color:#17213f">
-    <app-mist-header [user]="data.user" (leavingPage)="doLeaving($event);"></app-mist-header>
-    <div class="container-fluid" style="background-color: whitesmoke; min-height: 300px;">
+  
         <app-local-top-navbar [id]="page_id" [data]="data"></app-local-top-navbar>
         <div class="row m-1 p-1" style="background-color:#e1e0d0">
             <div class="col-md-3"></div>
@@ -40,7 +38,7 @@
                             </div>
                             <div class="card-body">
                                 <app-criteria-search [data]="data" (searchData)="getData($event)"></app-criteria-search>
-                                <app-criteria-panel [data]="data" (getData)="getData($event)"></app-criteria-panel>
+                                <app-select-criteria-form [data]="data" (getData)="getData($event)"></app-select-criteria-form>
                             </div>
                         </div>
                     </div>
@@ -53,6 +51,3 @@
                 </div>
             </div>
         </div>
-    </div>
-    <app-mist-footer></app-mist-footer>
-</div>

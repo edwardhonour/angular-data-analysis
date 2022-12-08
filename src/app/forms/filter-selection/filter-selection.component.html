@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="row p-2 mt-2 mb-2">
+            <div class="col-md-12">
+                <h2>{{ title }}</h2>
+            </div>
+        </div>
+        <div class="row m-1 p-3">
+            <div class="col-lg-6">
+                Search: <input style="max-width:320px;" class="form-control" type="text" id="term" name="term" [(ngModel)]="term"> 
+            </div>
+        </div>
+
+        <table class="{{ format.class }}">
+         <tbody>
+           <tr  class="p-1" *ngFor="let m of list | filter: term | paginate: { currentPage: p , itemsPerPage: 10 }"> 
+                    <td [innerHTML]="m['OPTION']" class="p-1"></td>
+                    <td>
+                        <button class="btn btn-dark m-1" (click)="editClick(m);">(+)</button>
+                        <button class="btn btn-dark m-1" (click)="editClick(m);">(-)</button>
+                    </td>
+            </tr> 
+          </tbody> 
+        </table>
+       <div>
+            <paging-controls (pageChange)="p = $event" [isItemsPerPage]="false"  
+            class="my-pagination"></paging-controls> 
+        </div> 
+    </div>
+</div>

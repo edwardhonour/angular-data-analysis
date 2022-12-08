@@ -1,5 +1,3 @@
-<div class="container-fluid p-3" style="background-color:#17213f">
-    <app-mist-header [user]="data.user" (leavingPage)="doLeaving($event);"></app-mist-header>
     <div class="container-fluid" style="background-color: whitesmoke; min-height: 300px;">
         <app-local-top-navbar></app-local-top-navbar>
          <app-table-list-component 
@@ -8,5 +6,3 @@
             (buttonClicked)="buttonClicked($event)" 
             (editClicked)="editClicked($event)"></app-table-list-component>
     </div>
-    <app-mist-footer></app-mist-footer>
-</div>

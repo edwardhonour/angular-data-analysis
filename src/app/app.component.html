@@ -1,5 +1,7 @@
-<div class="container-fluid">
-  <div class="row">
-    <router-outlet></router-outlet>
-  </div>
-</div>
+    <div class="container-fluid p-3" style="background-color:#17213f">
+        <app-mist-header [user]="data" (leavingPage)="doLeaving($event);"></app-mist-header>
+        <div class="container-fluid" style="background-color: whitesmoke; min-height: 300px;">   
+            <router-outlet></router-outlet>
+            <app-mist-footer></app-mist-footer>
+        </div>
+    </div>

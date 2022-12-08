@@ -4,7 +4,18 @@
     </div>
     <div class="card-body">
         <div *ngIf="data.filter_selection.length>0" class="card-body">
-            *Filters Panel Works*
+                 <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-condensed table-striped">
+                         <tbody>
+                           <tr  class="p-2" *ngFor="let m of data.filter_selection"> 
+                                <td style="font-size:12px;" [innerHTML]="m.OPTION_DSC"></td>
+                                <td (click)="deleteFilter(m);">(-)</td>
+                            </tr> 
+                          </tbody> 
+                        </table>
+                    </div>
+                </div>
         </div>
         <div *ngIf="data.filter_selection.length==0" class="card-body">
                 <p>No filters selected!</p>

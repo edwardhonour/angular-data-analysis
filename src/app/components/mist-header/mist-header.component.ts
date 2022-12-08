@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'app-mist-header',
@@ -9,6 +9,8 @@ export class MistHeaderComponent implements OnInit {
 
   @Input() user: any;
   loading: string='';
+  username: string='';
+  role: string='';
   url: any;
   page: string = 'today.asp';
   constructor() { }
@@ -19,6 +21,16 @@ export class MistHeaderComponent implements OnInit {
 
   leavePage() {
       this.leavingPage.emit('GOING');
+  }
+
+  ngOnChanges() {
+    console.log('ngOnChanges')
+    console.log(this.user);
+    if (this.user!==undefined) {
+      this.username = this.user.user.USER_NAME;
+      this.role = this.user.user.ROLE;
+    }
+
   }
 
   @Output() 
