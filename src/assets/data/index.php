@@ -1,4 +1,5 @@
 <?php
+
 //---------------------------------------------------------------------
 // Main API Router for this angular directory.
 // Author: Â Edward Honour
@@ -63,10 +64,10 @@ class DA {
         return $arr;
     }
 
-
-
     function getRNum() {
-        return 1000;
+        $sql="SELECT MEANINGLESS_KEY_SEQ.NEXTVAL AS C FROM DUAL";
+        $t=$this->X->sql($sql);
+        return $t[0]['C'];
     }
 
     function startNewReport($data) {
@@ -76,19 +77,41 @@ class DA {
     }
 
     function selectCriteriaOption($data) {
+
+         //-- ADD AN OPTION TO THE SELECTION_CRITERIA --//
+
          $data['id']=$data['data']['WEIGHT_ID'];
          $post=array();
-         $post['table_name']="RWH_USER_SELECTION";
+         $post['table_name']="RWH_USER_OPTION_SELECTION";
          $post['action']="insert";
+
          $post['RNUM']=$data['rnum'];
          $post['OPTION_ID']=$data['data']['OPTIONID'];
+         $post['WEIGHT_ID']=$data['data']['WEIGHT_ID'];
+         $post['OPTION_TYPE']="OPTION";
+         $post['OPTION_SOURCE']="SETS";
+         $sql="SELECT OPTION_DSC FROM RWH_DA_OPTIONS WHERE OPTIONID = '" . $post['OPTION_ID'] . "' AND OPTION_TYPE = 'OPTION'";
+         $d=$this->X->sql($sql);
+         if (sizeof($d)>0) {
+             $post['OPTION_DSC']=$d[0]['OPTION_DSC'];
+         }
 
-         $sql="select count(*) as C from RWH_USER_SELECTION WHERE RNUM = " . $post['RNUM'] . " AND OPTION_ID = '" . $post['OPTION_ID'] . "'";
+         if ($post['WEIGHT_ID']==1) $post['OPTION_DSC']="(";
+         if ($post['WEIGHT_ID']==2) $post['OPTION_DSC']=")";
+         if ($post['WEIGHT_ID']==3) $post['OPTION_DSC']="AND";
+         if ($post['WEIGHT_ID']==4) $post['OPTION_DSC']="OR";
+         if ($post['WEIGHT_ID']==5) $post['OPTION_DSC']="AND NOT";
+
+         $sql="select count(*) as C from RWH_USER_OPTION_SELECTION WHERE ";
+         $sql.=" RNUM = " . $post['RNUM'] . " AND OPTION_ID = '" . $post['OPTION_ID'] . "'";
          $g=$this->X->sql($sql);
          $c=$g[0]['C'];
 
-         if ($c==0||$post['OPTION_ID']=='1'||$post['OPTION_ID']=='2'||$post['OPTION_ID']=='3'||$post['OPTION_ID']=='4'||$post['OPTION_ID']=='5') {
-             $sql="select count(*) as C from RWH_USER_SELECTION WHERE RNUM = " . $post['RNUM'];
+         if ($c==0||
+             $post['OPTION_ID']=='1'||
+             $post['OPTION_ID']=='2'||
+             $post['OPTION_ID']=='3'||$post['OPTION_ID']=='4'||$post['OPTION_ID']=='5') {
+             $sql="select count(*) as C from RWH_USER_OPTION_SELECTION WHERE RNUM = " . $post['RNUM'] . " AND OPTION_TYPE = 'OPTION'";
              $g=$this->X->sql($sql);
              $c=$g[0]['C'];
              $post['OPTION_ORDER']=$c+1;
@@ -97,28 +120,55 @@ class DA {
 
          $output=$this->getHomePage($data);
          return $output;
+
   }
 
-
-    function deleteCriteriaFilter($data) {
-
-    }
-
     function deleteCriteriaColumn($data) {
-
-    }
-
-    function deleteCriteriaOption($data) {
-         $data['id']=$data['data']['WEIGHT_ID'];
-         $rnum=$data['data']['RNUM'];
-         $sql="delete from RWH_USER_SELECTION WHERE RNUM = " . $rnum . " AND ID = " . $data['data']['CAT_ID'];
-         $this->X->execute($sql);
-         $sql="select * from RWH_USER_SELECTION WHERE RNUM = " . $rnum . " ORDER BY OPTION_ORDER";
+          $sql="delete from RWH_USER_COLUMN_SELECTION WHERE ID = " . $data['data']['ID'];
+          $this->X->execute($sql);
+         //-- REorder...
+         $sql="select * from RWH_USER_COLUMN_SELECTION WHERE RNUM = " . $rnum . " ORDER BY COLUMN_ORDER";
          $templates=$this->X->sql($sql);
          $i=0;
          foreach($templates as $t) {
              $i++;
-             $sql="UPDATE RWH_USER_SELECTION SET OPTION_ORDER = " . $i . " WHERE ID = " . $t['ID'];
+             $sql="UPDATE RWH_USER_COLUMN_SELECTION SET OPTION_ORDER = " . $i . " WHERE ID = " . $t['ID'];
+             $this->X->execute($sql);
+         }
+         $output=$this->getHomePage($data);
+         return $output;
+    }
+/* */
+    function deleteCriteriaOption($data) {
+         $data['id']=$data['data']['WEIGHT_ID'];
+         $rnum=$data['data']['RNUM'];
+         $sql="delete from RWH_USER_OPTION_SELECTION WHERE ID = " . $data['data']['ID'];
+         $this->X->execute($sql);
+         //-- REorder...
+         $sql="select * from RWH_USER_OPTION_SELECTION WHERE RNUM = " . $rnum . " AND OPTION_TYPE = 'OPTION' ORDER BY OPTION_ORDER";
+         $templates=$this->X->sql($sql);
+         $i=0;
+         foreach($templates as $t) {
+             $i++;
+             $sql="UPDATE RWH_USER_OPTION_SELECTION SET OPTION_ORDER = " . $i . " WHERE ID = " . $t['ID'];
+             $this->X->execute($sql);
+         }
+         $output=$this->getHomePage($data);
+         return $output;
+    }
+
+   function deleteCriteriaFilter($data) {
+         $data['id']=$data['data']['WEIGHT_ID'];
+         $rnum=$data['data']['RNUM'];
+         $sql="delete from RWH_USER_OPTION_SELECTION WHERE ID = " . $data['data']['ID'];
+         $this->X->execute($sql);
+         //-- REorder...
+         $sql="select * from RWH_USER_OPTION_SELECTION WHERE RNUM = " . $rnum . " AND OPTION_TYPE <> 'OPTION' ORDER BY OPTION_ORDER";
+         $templates=$this->X->sql($sql);
+         $i=0;
+         foreach($templates as $t) {
+             $i++;
+             $sql="UPDATE RWH_USER_OPTION_SELECTION SET OPTION_ORDER = " . $i . " WHERE ID = " . $t['ID'];
              $this->X->execute($sql);
          }
          $output=$this->getHomePage($data);
@@ -135,27 +185,16 @@ class DA {
 
             $rnum=$data['rnum'];
 
-            $sql="select * from RWH_USER_SELECTION WHERE RNUM = " . $rnum . " ORDER BY OPTION_ORDER";
+            $sql="select * from RWH_USER_OPTION_SELECTION WHERE RNUM = " . $rnum . " AND OPTION_TYPE = 'OPTION' ORDER BY OPTION_ORDER";
             $list=$this->X->sql($sql);
-            $o=array();
-
-            foreach($list as $t) {
-                    $tt=array();
-                    $tt['ID']=$t['ID'];
-                    $tt['OPTION_ID']=$t['OPTION_ID'];
-                    $sql="select OPTION_DSC FROM RWH_DA_OPTIONS WHERE OPTIONID = '" . $tt['OPTION_ID'] . "'";
-                    $h=$this->X->sql($sql);
-                    $tt['OPTION_DSC']=$h[0]['OPTION_DSC'];
-                    array_push($o,$tt);
-            }
-            return $o;
+            return $list;
 
     }
-
+/* */
     function getFilterSelections($data) {
 
             $rnum=$data['rnum'];
-            $sql="select * from RWH_FILTER_SELECTION WHERE RNUM = " . $rnum . " ORDER BY OPTION_ORDER";
+            $sql="select * from RWH_USER_OPTION_SELECTION WHERE RNUM = " . $rnum . " AND OPTION_TYPE <> 'OPTION' ORDER BY OPTION_ORDER";
             $templates=$this->X->sql($sql);
             return $templates;
 
@@ -164,24 +203,36 @@ class DA {
     function getColumnSelections($data) {
 
             $rnum=$data['rnum'];
-            $sql="select * from RWH_COLUMN_SELECTION WHERE RNUM = " . $rnum . " ORDER BY COLUMN_ORDER";
+            $sql="select * from RWH_USER_COLUMN_SELECTION WHERE RNUM = " . $rnum . " ORDER BY COLUMN_ORDER";
             $templates=$this->X->sql($sql);
             return $templates;
 
     }
 
     function getCriteriaCategories($data) {
-
             $sql="select CAT_ID, LONG_NAME, TITLE FROM RWH_CRITERIA_CATEGORIES WHERE SCORING_TYPE = 'PMI' ORDER BY CAT_ID ";
             $templates=$this->X->sql($sql);
             return $templates;
+    }
 
+    function getFilterCategories($data) {
+            $sql="select CAT_ID, LONG_NAME, TITLE FROM RWH_CRITERIA_CATEGORIES WHERE SCORING_TYPE = 'FLT' ORDER BY CAT_ID ";
+            $templates=$this->X->sql($sql);
+            return $templates;
     }
 
     function getCategoryOptions($id) {
-        $sql="SELECT * FROM RWH_DA_OPTIONS WHERE WEIGHT_ID = '" . $id. "' ORDER BY ID";
+        $sql="SELECT * FROM RWH_DA_OPTIONS WHERE WEIGHT_ID = '" . $id. "' AND OPTION_TYPE = 'OPTION' ORDER BY OPTION_ORDER";
         $options=$this->X->sql($sql);
         return $options;
+    }
+
+    function getFilterOptions($data) {
+        $output=$this->getHomePage($data);
+        $sql="SELECT * FROM RWH_DA_OPTIONS WHERE OPTION_TYPE = '" . $data['data']['WEIGHT_ID'] . "' ORDER BY OPTION_ORDER";
+        $options=$this->X->sql($sql);
+        $output['options']=$options;
+        return $output;
     }
 
     function getSectionTitle($id) {
@@ -197,16 +248,78 @@ class DA {
 
     }
 
+    function getFilterTitle($id) {
+            $sql="SELECT * FROM RWH_CRITERIA_CATEGORIES WHERE CAT_ID = '" . $id . "' AND SCORING_TYPE = 'FLT'";
+            $t=$this->X->sql($sql);
+            if (sizeof($t)>0) {
+                    $out=$t[0]['LONG_NAME'];
+            } else {
+                    $out="Please Select a Category";
+            }
+            return $out;
+    }
+
+
+function makeOptionData($id,$rnum,$username) {
+          $optionData=array();
+          $optionData['WEIGHT_ID']=$id;
+          $optionData['CAT_ID']=$id;
+          $optionData['RNUM']=$rnum;
+          $optionData['USERNAME']=$username;
+          $optionData['NOT_FLAG']="";
+          $optionData['OPTIONID']="";
+          $optionData['OPTION_VALUE']="";
+          $optionData['OPTION_TYPE']="";
+          $optionData['OPTION_SOURCE']="";
+          $optionData['OPTION_EXCLUDE']="";
+          return $optionData;
+}
+
+function makeFilterData($id,$rnum) {
+          $filterData=array();
+          $filterData['WEIGHT_ID']=$id;
+          $filterData['ID']="";
+          $filterData['RNUM']=$rnum;
+          $filterData['OPTION_ORDER']="";
+          $filterData['OPTION_TYPE']="";
+          $filterData['OPTION_DESC']="";
+          $filterData['OPTION_EXCLUDE']="";
+          $filterData['OPTION_ID']="";
+          $filterData['CUSTOM1']="";
+          $filterData['CUSTOM2']="";
+          return $filterData;
+}
+
+function makeColumnData($id,$rnum) { 
+          $columnData=array();
+          $columnData['RNUM']=$rnum;
+          $columnData['COLUMN_DSC']="";
+          $columnData['COLUMN_ID']="";
+          $columnData['COLUMN_ORDER']="";
+          $columnData['SCORING_TYPE']="";
+          return $columnData;
+}
+
+function makeSearchData($id,$rnum) {
+          $searchData=array();
+          $searchData['SEARCH']="";
+          return $searchData;
+}
+
+function makeFormData($id,$rnum) {
+          $formData=array();
+          $formData['ID']="";
+          $formData['CAT_ID']="";
+          return $formData;
+}
+/* */
     function getHomePage($data) {
 
           $output=array();
           $user=$this->getUser($data);
           if (isset($data['id'])) { $id=$data['id']; } else { $id=0; }
-          if (isset($data['rnum'])) {
-                  $rnum=$data['rnum'];
-          } else {
-                  $rnum='';
-          }
+          if (isset($data['rnum'])) $rnum=$data['rnum']; else $rnum='';
+         
           if ($rnum=='') {
              $rnum=$this->getRNum();
              $data['rnum']=$rnum;
@@ -218,8 +331,8 @@ class DA {
              return $output;
           } else {
 
-            $output=array();
-            $output['user']=$user;
+                $output=array();
+                $output['user']=$user;
 
     
             if ($id!=""&&$id!=0) {
@@ -240,61 +353,17 @@ class DA {
 
             }
 
-          $searchData=array();
-          $searchData['SEARCH']="";
-          $output['searchData']=$searchData;
 
-          $optionData=array();
-          $optionData['WEIGHT_ID']=$id;
-          $optionData['CAT_ID']=$id;
-          $optionData['RNUM']=$rnum;
-          $optionData['USERNAME']=$output['user']['USER_NAME'];
-          $optionData['NOT_FLAG']="";
-          $optionData['OPTIONID']="";
-          $optionData['OPTION_VALUE']="";
-          $optionData['OPTION_TYPE']="";
-          $output['optionData']=$optionData;
-
-          $filterData=array();
-          $filterData['WEIGHT_ID']=$id;
-          $filterData['ID']="";
-          $filterData['RNUM']=$rnum;
-          $filterData['OPTION_ORDER']="";
-          $filterData['OPTION_TYPE']="";
-          $filterData['OPTION_DESC']="";
-          $filterData['OPTION_EXCLUDE']="";
-          $filterData['OPTION_ID']="";
-          $filterData['CUSTOM1']="";
-          $filterData['CUSTOM2']="";
-          $output['filterData']=$filterData;
-
-          $columnData=array();
-          $columnData['RNUM']=$rnum;
-          $columnData['COLUMN_DSC']="";
-          $columnData['COLUMN_ID']="";
-          $columnData['COLUMN_ORDER']="";
-          $columnData['SCORING_TYPE']="";
-          $output['columnData']=$columnData;
-
-          $formData=array();
-          $formData['CAT_ID']="";
-          $output['formData']=$formData;
+          $output['searchData']=$this->makeSearchData($id,$rnum);
+          $output['optionData']=$this->makeOptionData($id,$rnum,$output['user']['USER_NAME']);
+          $output['filterData']=$this->makeFilterData($id,$rnum);
+          $output['columnData']=$this->makeColumnData($id,$rnum);
+          $output['formData']=$this->makeFormData($id,$rnum);
+          $output['postForm']=$this->makeFormData($id,$rnum);
           return $output;
     }
 
-    function getFilterTitle($id) {
-
-    }
-
-
-    function getFilterOptions($id) {
-
-    }
-
-    function getFilterCategories($data) {
-
-    }
-
+/* */
     function getFilterPage($data) {
 
           $output=array();
@@ -332,41 +401,12 @@ class DA {
             $output['column_selection']=$this->getColumnSelections($data);
 
             }
-          $optionData=array();
-          $optionData['WEIGHT_ID']=$id;
-          $optionData['CAT_ID']=$id;
-          $optionData['RNUM']=$rnum;
-          $optionData['USERNAME']=$output['user']['USER_NAME'];
-          $optionData['NOT_FLAG']="";
-          $optionData['OPTIONID']="";
-          $optionData['OPTION_VALUE']="";
-          $optionData['OPTION_TYPE']="";
-          $output['optionData']=$optionData;
 
-          $filterData=array();
-          $filterData['WEIGHT_ID']=$id;
-          $filterData['ID']="";
-          $filterData['RNUM']=$rnum;
-          $filterData['OPTION_ORDER']="";
-          $filterData['OPTION_TYPE']="";
-          $filterData['OPTION_DESC']="";
-          $filterData['OPTION_EXCLUDE']="";
-          $filterData['OPTION_ID']="";
-          $filterData['CUSTOM1']="";
-          $filterData['CUSTOM2']="";
-          $output['filterData']=$filterData;
-
-          $columnData=array();
-          $columnData['RNUM']=$rnum;
-          $columnData['COLUMN_DSC']="";
-          $columnData['COLUMN_ID']="";
-          $columnData['COLUMN_ORDER']="";
-          $columnData['SCORING_TYPE']="";
-          $output['columnData']=$columnData;
-
-          $formData=array();
-          $formData['CAT_ID']="";
-          $output['formData']=$formData;
+          $output['optionData']=$this->makeOptionData($id,$rnum,$output['user']['USER_NAME']);
+          $output['filterData']=$this->makeFilterData($id,$rnum);
+          $output['columnData']=$this->makeColumnData($id,$rnum);
+	  $output['formData']=$this->makeFormData($id,$rnum);
+          $output['postForm']=$this->makeFormData($id,$rnum);
           return $output;
     }
 
@@ -381,6 +421,81 @@ class DA {
     function getColumnCategories($id) {
 
     }
+
+function makeFrom($data) {
+
+    $rnum=$data['rnum'];
+
+    $sql=" FROM ";
+    $sql.=" RWH_DIM_FACILITY F WHERE F.ACTIVE_FLAG = 'Y' AND F.FPS_RESPONSIBLE = 'Y' ";
+    $sql.=" AND BUILDING_NBR NOT IN (SELECT BUILDING_NBR FROM FPS_EXCLUDED_BUILDINGS) ";
+
+    $s="SELECT OPTION_ID FROM RWH_USER_OPTION_SELECTION WHERE RNUM = ". $rnum . " AND OPTION_SOURCE = 'SETS' ";
+    $s.=" ORDER BY OPTION_ORDER ";
+    $t=$this->X->sql($s);
+    if (sizeof($t)>0) {
+        $a="";
+        $c=0;
+        $oper="";
+        foreach($t as $u) {
+        if ($u['OPTION_ID']=='1'||$u['OPTION_ID']=='3'||$u['OPTION_ID']=='4'||$u['OPTION_ID']=='5') {
+           if ($u['OPTION_ID']=='1') $oper.=" ( ";       
+           if ($u['OPTION_ID']=='2') $oper.=" ) "; 
+           if ($u['OPTION_ID']=='3') $oper.=" INTERSECT ";
+           if ($u['OPTION_ID']=='4') $oper.=" UNION ";
+           if ($u['OPTION_ID']=='5') $oper.=" MINUS ";//
+           $a.= $oper;
+       } else {
+           $a.= $oper . " (SELECT FACILITY_ID FROM RWH_FACILITY_OPTIONS WHERE OPTION_ID = " . $u['OPTION_ID'] . ")";
+           $oper=" INTERSECT ";
+       }
+       $c++;
+       }
+       $sql .= " AND F.FACILITY_ID IN (" . $a . ")";
+    }
+
+    return $sql;
+
+}
+
+function doCount($data) {
+
+    $rnum=$data['rnum'];
+
+    $sql="SELECT to_char(count(DISTINCT F.BUILDING_NBR),'99,999') as C ";
+    $sql.=$this->makeFrom($data);
+
+    $ora=new OracleDB();
+    $db=$ora->connectACN();
+    $data = $db->query($sql);
+    $result = $data->fetchAll(PDO::FETCH_ASSOC);
+    if ($result) {
+             $C=$result[0]['C'];
+             $C=str_replace(" ","",$C);
+             $C=$C . " matches";
+          } else{
+             $C="Expression Error";
+    }
+    $output=array();
+    $output['count']=$C;
+    return $output;
+}
+
+function doReport($data) {
+
+
+    $rnum=$data['rnum'];
+
+    $output=$this->getHomePage($data);
+    $sql="SELECT FACILITY_ID, BUILDING_NBR, FACILITY_NAME, REGION_ID, DISTRICT_ID, CITY_NAME, STATE_ABBR, ";
+    $sql.=" DECODE(OWNERSHIP_ID,200004,'Owned',200029,'Leased',300029,'N','') AS OWNERSHIP_ID, FSL "; 
+    $sql.=$this->makeFrom($data);
+
+    $h=$this->X->sql($sql);
+    $output['list']=$h;
+    return $output;
+
+}
 
   function getColumnPage($data) {
 
@@ -419,43 +534,11 @@ class DA {
             $output['column_selection']=$this->getColumnSelections($data);
 
             }
-
-          $optionData=array();
-          $optionData['WEIGHT_ID']=$id;
-          $optionData['CAT_ID']=$id;
-          $optionData['RNUM']=$rnum;
-          $optionData['USERNAME']=$output['user']['USER_NAME'];
-          $optionData['NOT_FLAG']="";
-
-          $optionData['OPTIONID']="";
-          $optionData['OPTION_VALUE']="";
-          $optionData['OPTION_TYPE']="";
-          $output['optionData']=$optionData;
-
-          $filterData=array();
-          $filterData['WEIGHT_ID']=$id;
-          $filterData['ID']="";
-          $filterData['RNUM']=$rnum;
-          $filterData['OPTION_ORDER']="";
-          $filterData['OPTION_TYPE']="";
-          $filterData['OPTION_DESC']="";
-          $filterData['OPTION_EXCLUDE']="";
-          $filterData['OPTION_ID']="";
-          $filterData['CUSTOM1']="";
-          $filterData['CUSTOM2']="";
-          $output['filterData']=$filterData;
-
-          $columnData=array();
-          $columnData['RNUM']=$rnum;
-          $columnData['COLUMN_DSC']="";
-          $columnData['COLUMN_ID']="";
-          $columnData['COLUMN_ORDER']="";
-          $columnData['SCORING_TYPE']="";
-          $output['columnData']=$columnData;
-
-          $formData=array();
-          $formData['CAT_ID']="";
-          $output['formData']=$formData;
+          $output['optionData']=$this->makeOptionData($id,$rnum,$output['user']['USER_NAME']);
+          $output['filterData']=$this->makeFilterData($id,$rnum);
+          $output['columnData']=$this->makeColumnData($id,$rnum);
+	  $output['formData']=$this->makeFormData($id,$rnum);
+          $output['postForm']=$this->makeFormData($id,$rnum);
           return $output;
     }
 
@@ -464,6 +547,26 @@ class DA {
        $list=$this->X->sql($sql);
        $output=array();
        $output['list']=$list;
+       return $output;
+    }
+
+    function getOptionsList($data) {
+       $output=$this->getHomePage($data);
+       $sql="SELECT * FROM RWH_DA_OPTIONS ORDER BY WEIGHT_ID, OPTION_ORDER";
+       $list=$this->X->sql($sql);
+       $output['list']=$list;
+       $formData=array();
+       $formData['ID']="";
+       $formData['WEIGHT_ID']="";
+       $formData['TITLE']="";
+       $formData['SHORT_NAME']="";
+       $formData['OPTIONID']="";
+       $formData['OPTION_DSC']="";
+       $formData['OPTION_TYPE']="";
+       $formData['OPTION_SOURCE']="";
+       $formData['OPTION_ORDER']="";
+       $formData['DISPLAY_LEVEL']="";
+       $output['formData']=$formData;
        return $output;
     }
 
@@ -477,13 +580,20 @@ class DA {
 
     function criteriaSearch($data) {
         $output=$this->getHomePage($data);
-        $sql="SELECT * FROM RWH_DA_OPTIONS WHERE UPPER(OPTION_DSC) LIKE '%" . strtoupper($data['data']['SEARCH']) . "%' ORDER BY ID";
+        $sql="SELECT * FROM RWH_DA_OPTIONS WHERE UPPER(OPTION_DSC) LIKE '%" . strtoupper($data['data']['SEARCH']) . "%' ORDER BY OPTION_ORDER";
         $options=$this->X->sql($sql);
         $output['section_title']="Search Results";
         $output['options']=$options;
         return $output;
     }
 
+    function postEditDAOption($data) {
+          $post=$data['data'];
+          $this->X->post($post);
+          $output=array();
+          $output['error_code']=0;
+          return $output;
+    }
 
 }
 
@@ -515,10 +625,16 @@ $output=array();
         case 'get-criteria-category':
              $output=$A->getCriteriaCategory($data);
              break;
+        case 'get-filter-option':
+             $output=$A->getFilterOptions($data);
+             break;
+        case 'do-count':
+             $output=$A->doCount($data);
+             break;
         case 'select-criteria-option':
              $output=$A->selectCriteriaOption($data);
              break;
-        case 'select-criteria-filter':
+        case 'select-filter-option':
              $output=$A->selectCriteriaFilter($data);
              break;
         case 'select-criteria-column':
@@ -545,10 +661,18 @@ $output=array();
         case 'columns':
              $output=$A->getColumnPage($data);
              break;
+        case 'report':
+             $output=$A->doReport($data);
+             break;
         case 'perform-criteria-search':
              $output=$A->criteriaSearch($data);
              break;
-
+        case 'post-edit-da-option':
+             $output=$A->postEditDAOption($data);
+             break;
+        case 'options':
+             $output=$A->getOptionsList($data);
+             break;
         default:
             $output=$A->getHomePage($data);
             break;

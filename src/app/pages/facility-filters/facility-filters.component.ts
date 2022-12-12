@@ -1,3 +1,4 @@
+import { getLocaleDateFormat } from '@angular/common';
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { ActivatedRoute, Data, Router } from '@angular/router';
 import { DataService } from 'src/app/data.service';
@@ -28,8 +29,12 @@ export class FacilityFiltersComponent implements OnInit, OnChanges {
     )
   }
 
-  ngOnChanges() {
+  getData(d: any) {
+      this.data = d;
+  } 
 
+  ngOnChanges() {
+      console.log('Filter Page Data Changed')
   }
 
     doLeaving(a: any) {
@@ -47,7 +52,7 @@ export class FacilityFiltersComponent implements OnInit, OnChanges {
     selectCriteria(m: any) {
           this.data.optionData.OPTIONID = m.OPTIONID
           this.data.optionData.CAT_ID=m.OPTION_ID;
-          this._dataService.postForm("post-criteria-category", this.data.optionData).subscribe((data:any)=>{
+          this._dataService.postForm("post-filter-selection", this.data.optionData).subscribe((data:any)=>{
           this.data=data;
       });
     }

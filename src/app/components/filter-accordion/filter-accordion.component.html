@@ -11,11 +11,11 @@
       </h2>
         <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
             <div class="accordion-body">
-                <div (click)="pressButton('9900');" class="btn btn-light border" style="width:100%; text-align: left;">Regions</div>
-                <div (click)="pressButton('9900');" class="btn btn-light border" style="width:100%; text-align: left;">States</div>
-                <div (click)="pressButton('9900');" class="btn btn-light border" style="width:100%; text-align: left;">Cities</div>
-                <div (click)="pressButton('9900');" class="btn btn-light border" style="width:100%; text-align: left;">Zip Codes</div>
-                <div (click)="pressButton('9900');" class="btn btn-light border" style="width:100%; text-align: left;">Districts / Areas</div>
+                <div (click)="pressButton('REGION');" class="btn btn-light border" style="width:100%; text-align: left;">Regions</div>
+                <div (click)="pressButton('STATE');" class="btn btn-light border" style="width:100%; text-align: left;">States</div>
+                <div (click)="pressButton('CITY');" class="btn btn-light border" style="width:100%; text-align: left;">Cities</div>
+                <div (click)="pressButton('ZIPCODE');" class="btn btn-light border" style="width:100%; text-align: left;">Zip Codes</div>
+                <div (click)="pressButton('DISTRICT');" class="btn btn-light border" style="width:100%; text-align: left;">Districts / Areas</div>
             </div>
     </div>
     <div class="accordion-item">
@@ -26,15 +26,16 @@
       </h2>
       <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
  <div class="accordion-body">
-    <div (click)="pressButton('32100');" class="btn btn-light border" style="width:100%; text-align: left;">Building Y/N</div>
-    <div (click)="pressButton('32200');" class="btn btn-light border" style="width:100%; text-align: left;">Building Type</div>
-    <div (click)="pressButton('32300');" class="btn btn-light border" style="width:100%; text-align: left;">Ownership</div>
-    <div (click)="pressButton('32310');" class="btn btn-light border" style="width:100%; text-align: left;">Campus Y/N</div>
-    <div (click)="pressButton('32320');" class="btn btn-light border" style="width:100%; text-align: left;">Elevator Manufacturer</div>
-    <div (click)="pressButton('32000');" class="btn btn-light border" style="width:100%; text-align: left;">Escalator Manufacturer</div>
-    <div (click)="pressButton('32000');" class="btn btn-light border" style="width:100%; text-align: left;">Facility Type</div>
-    <div (click)="pressButton('32000');" class="btn btn-light border" style="width:100%; text-align: left;">FSA Responsible</div>
-    <div (click)="pressButton('32000');" class="btn btn-light border" style="width:100%; text-align: left;">Active</div>
+    <div (click)="pressButton('BUILDINGNY');" class="btn btn-light border" style="width:100%; text-align: left;">Building Y/N</div>
+    <div (click)="pressButton('BUILDINGTYPE');" class="btn btn-light border" style="width:100%; text-align: left;">Building Type</div>
+    <div (click)="pressButton('OWNERSHIP');" class="btn btn-light border" style="width:100%; text-align: left;">Ownership</div>
+    <div (click)="pressButton('CAMPUS');" class="btn btn-light border" style="width:100%; text-align: left;">Campus Y/N</div>
+    <div (click)="pressButton('ELEVATOR');" class="btn btn-light border" style="width:100%; text-align: left;">Elevator Manufacturer</div>
+    <div (click)="pressButton('ESCALATOR');" class="btn btn-light border" style="width:100%; text-align: left;">Escalator Manufacturer</div>
+    <div (click)="pressButton('VENDOR');" class="btn btn-light border" style="width:100%; text-align: left;">Equipment Vendor</div>        
+    <div (click)="pressButton('FACILITYTYPE');" class="btn btn-light border" style="width:100%; text-align: left;">Facility Type</div>
+    <div (click)="pressButton('RESPONSIBLE');" class="btn btn-light border" style="width:100%; text-align: left;">FSA Responsible</div>
+    <div (click)="pressButton('ACTIVE');" class="btn btn-light border" style="width:100%; text-align: left;">Active</div>
 </div>
     </div>
     </div>
@@ -46,16 +47,15 @@
       </h2>
       <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
         <div class="accordion-body">
-            <div (click)="pressButton('5100');" class="btn btn-light border" style="width:100%; text-align: left;">FSL</div>
-            <div (click)="pressButton('5700');" class="btn btn-light border" style="width:100%; text-align: left;">Inspector</div>
-            <div (click)="pressButton('5600');" class="btn btn-light border" style="width:100%; text-align: left;">Area Commander</div>
-            <div (click)="pressButton('6000');" class="btn btn-light border" style="width:100%; text-align: left;">District Commander</div>
-            <div (click)="pressButton('6100');" class="btn btn-light border" style="width:100%; text-align: left;">Tenants</div>
-            <div (click)="pressButton('21000');" class="btn btn-light border" style="width:100%; text-align: left;">Basic Security Fee</div>
-            <div (click)="pressButton('7500');" class="btn btn-light border" style="width:100%; text-align: left;">Delegation Agency</div>
-            <div (click)="pressButton('6300');" class="btn btn-light border" style="width:100%; text-align: left;">Delegation Type</div>
-            <div (click)="pressButton('5400');" class="btn btn-light border" style="width:100%; text-align: left;">Document Type</div>
-            <div (click)="pressButton('32000');" class="btn btn-light border" style="width:100%; text-align: left;">FSA Schedule</div>
+            <div (click)="pressButton('FSL');" class="btn btn-light border" style="width:100%; text-align: left;">FSL</div>
+            <div (click)="pressButton('INSPECTOR');" class="btn btn-light border" style="width:100%; text-align: left;">Inspector</div>
+            <div (click)="pressButton('AC');" class="btn btn-light border" style="width:100%; text-align: left;">Area Commander</div>
+            <div (click)="pressButton('DC');" class="btn btn-light border" style="width:100%; text-align: left;">District Commander</div>
+            <div (click)="pressButton('TENANT');" class="btn btn-light border" style="width:100%; text-align: left;">Tenants</div>
+            <div (click)="pressButton('SECURITYFEE');" class="btn btn-light border" style="width:100%; text-align: left;">Basic Security Fee</div>
+            <div (click)="pressButton('DAGENCY');" class="btn btn-light border" style="width:100%; text-align: left;">Delegation Agency</div>
+            <div (click)="pressButton('DELETYPE');" class="btn btn-light border" style="width:100%; text-align: left;">Delegation Type</div>
+            <div (click)="pressButton('FSAYEAR');" class="btn btn-light border" style="width:100%; text-align: left;">FSA Schedule</div>
          </div>
     </div>
     </div>

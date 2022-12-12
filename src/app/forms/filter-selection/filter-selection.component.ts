@@ -20,36 +20,31 @@ export class FilterSelectionComponent implements OnInit, OnChanges {
 
       }
 
-    buttonClick(n: string) {
-       // One of the top buttons is click. The 'value' field is 
-      // returned to the parent component.
-      this.buttonClicked.emit(n);
-    }
+      include(m: any) {
+            this.data.optionData.OPTIONID = m.OPTIONID
+            this.data.optionData.WEIGHT_ID=m.WEIGHT_ID;
+            this.dataService.postForm("include-filter-option", this.data.optionData).subscribe((data:any)=>{
+            this.data=data;
+            this.getData.emit(this.data);
+        });
+      } 
 
-    editClick(m: any) {
-      // An edit button in the list was clicked. The record (m) is
-      // returned to the parent component.
-      this.editClicked.emit(m);
-    }
+      exclude(m: any) {
+        this.data.optionData.OPTIONID = m.OPTIONID
+        this.data.optionData.WEIGHT_ID=m.WEIGHT_ID;
+        this.dataService.postForm("exclude-filter-option", this.data.optionData).subscribe((data:any)=>{
+        this.data=data;
+        this.getData.emit(this.data);
+    });
+  } 
+
 
     ngOnChanges() {
-        this.list=this.data;
-      //  if (this.format.sql!=='') {
-      //      this.dataService.getDataSQL(this.format.sql).subscribe( (data: any) => {
-      //          this.list=data.list;
-      //          console.log('this');
-      ///          console.log(this.list);
-       //         console.log('here');
-       //     });
-     //  
-     //   }
+        console.log('Facility Option Changed')
+        this.list=this.data.options;
     }
 
     @Output()
-    buttonClicked: EventEmitter<string> = new EventEmitter<string>(); 
-
-  @Output()
-  editClicked: EventEmitter<string> = new EventEmitter<any>(); 
-
+    getData: EventEmitter<string> = new EventEmitter<any>(); 
 }
 

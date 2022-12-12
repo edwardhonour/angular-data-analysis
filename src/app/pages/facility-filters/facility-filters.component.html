@@ -1,7 +1,7 @@
         <app-local-top-navbar [id]="page_id" [data]="data"></app-local-top-navbar>
         <div class="row">
             <div class="col-md-3">
-                <app-filter-accordion [id]="page_id" (buttonPressed)="getCriteriaCategory($event)"></app-filter-accordion>
+                <app-filter-accordion [data]="data" (getData)="getData($event)"></app-filter-accordion>
             </div>
             <div class="col-md-9">
                 <div class="col-md-12 p-3">
@@ -10,7 +10,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6 p-2">
-                        <app-filters-panel [data]="data" (buttonClicked)="selectCriteria($event)"></app-filters-panel>
+                        <app-filter-selection [data]="data" (buttonClicked)="selectCriteria($event)"></app-filter-selection>
                     </div>
                     <div class="col-md-5">
                         <app-count-panel [data]="data"></app-count-panel>
