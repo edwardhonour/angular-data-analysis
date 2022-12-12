@@ -2,8 +2,7 @@
     <div class="card-header">
         Facility Filters Selected
     </div>
-    <div class="card-body">
-        <div *ngIf="data.filter_selection.length>0" class="card-body">
+    <div *ngIf="data.filter_selection.length>0" class="card-body">
                  <div class="row">
                     <div class="col-md-12">
                         <table class="table table-condensed table-striped">
@@ -16,7 +15,6 @@
                         </table>
                     </div>
                 </div>
-        </div>
         <div *ngIf="data.filter_selection.length==0" class="card-body">
                 <p>No filters selected!</p>
         </div>
