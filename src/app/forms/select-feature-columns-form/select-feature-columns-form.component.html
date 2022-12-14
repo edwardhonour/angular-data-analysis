@@ -5,13 +5,13 @@
                 <h2 style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size:18px;">{{ data.section_title }}</h2>
             </div>
         </div>
-        <table class="table">
+        <table>
          <tbody>
-           <tr  class="p-2" *ngFor="let m of data.options"> 
+           <tr  class="p-2" *ngFor="let m of data.options2"> 
                 <td *ngIf="m.DISPLAY_LEVEL!='0'" style="font-size:12px;" [innerHTML]="m.OPTION_DSC"></td>
                 <td *ngIf="m.DISPLAY_LEVEL=='0'" class="border-primary" style="font-size:16px;" [innerHTML]="m.OPTION_DSC"></td>
-                <td style="width:50px;" *ngIf="m.DISPLAY_LEVEL!='0'" (click)="buttonClick(m);">(+)</td>
-                <td style="width:50px;" *ngIf="m.DISPLAY_LEVEL=='0'"></td>
+                <td *ngIf="m.DISPLAY_LEVEL!='0'" (click)="buttonClick(m);">(+)</td>
+                <td *ngIf="m.DISPLAY_LEVEL=='0'"></td>
             </tr> 
           </tbody> 
         </table>

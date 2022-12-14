@@ -14,6 +14,7 @@ export class FilterSelectionComponent implements OnInit, OnChanges {
       p: any;                // Pagination Page
       term: any;             // Search Filter
       list: any;
+      tmpList: any;
       title: any;
 
       ngOnInit(): void {
@@ -23,19 +24,31 @@ export class FilterSelectionComponent implements OnInit, OnChanges {
       include(m: any) {
             this.data.optionData.OPTIONID = m.OPTIONID
             this.data.optionData.WEIGHT_ID=m.WEIGHT_ID;
+            this.data.optionData.OPTION_EXCLUDE="INCLUDE";
+            this.data.optionData.OPTION_VALUE=m.SHORT_NAME;
+            this.data.optionData.OPTION_SOURCE='SET';
+            this.data.optionData.OPTION_TYPE=m.WEIGHT_ID;
+            this.tmpList=this.list;
             this.dataService.postForm("include-filter-option", this.data.optionData).subscribe((data:any)=>{
-            this.data=data;
-            this.getData.emit(this.data);
-        });
+                this.data=data;
+                this.data.options=this.tmpList;
+                this.getData.emit(this.data);
+            });
       } 
 
       exclude(m: any) {
         this.data.optionData.OPTIONID = m.OPTIONID
         this.data.optionData.WEIGHT_ID=m.WEIGHT_ID;
+        this.data.optionData.OPTION_EXCLUDE="EXCLUDE";
+        this.data.optionData.OPTION_VALUE=m.SHORT_NAME;
+        this.data.optionData.OPTION_SOURCE='SET';
+        this.data.optionData.OPTION_TYPE=m.WEIGHT_ID;
+        this.tmpList=this.list;
         this.dataService.postForm("exclude-filter-option", this.data.optionData).subscribe((data:any)=>{
-        this.data=data;
-        this.getData.emit(this.data);
-    });
+            this.data=data;
+            this.data.options=this.tmpList;
+            this.getData.emit(this.data);
+        });
   } 
 
 

@@ -192,21 +192,17 @@ class DA {
     }
 /* */
     function getFilterSelections($data) {
-
             $rnum=$data['rnum'];
             $sql="select * from RWH_USER_OPTION_SELECTION WHERE RNUM = " . $rnum . " AND OPTION_TYPE <> 'OPTION' ORDER BY OPTION_ORDER";
             $templates=$this->X->sql($sql);
             return $templates;
-
     }
 
     function getColumnSelections($data) {
-
             $rnum=$data['rnum'];
             $sql="select * from RWH_USER_COLUMN_SELECTION WHERE RNUM = " . $rnum . " ORDER BY COLUMN_ORDER";
             $templates=$this->X->sql($sql);
             return $templates;
-
     }
 
     function getCriteriaCategories($data) {
@@ -221,11 +217,6 @@ class DA {
             return $templates;
     }
 
-    function getCategoryOptions($id) {
-        $sql="SELECT * FROM RWH_DA_OPTIONS WHERE WEIGHT_ID = '" . $id. "' AND OPTION_TYPE = 'OPTION' ORDER BY OPTION_ORDER";
-        $options=$this->X->sql($sql);
-        return $options;
-    }
 
     function getFilterOptions($data) {
         $output=$this->getHomePage($data);
@@ -236,7 +227,6 @@ class DA {
     }
 
     function getSectionTitle($id) {
-
             $sql="SELECT * FROM RWH_CRITERIA_CATEGORIES WHERE CAT_ID = '" . $id . "' AND SCORING_TYPE = 'PMI'";
             $t=$this->X->sql($sql);
             if (sizeof($t)>0) {
@@ -245,7 +235,6 @@ class DA {
                     $out="Please Select a Category";
             }
             return $out;
-
     }
 
     function getFilterTitle($id) {
@@ -620,6 +609,8 @@ if (isset($aa[1])) {
          }
 }
 $output=array();
+
+
 
    switch ($data['q']) {
         case 'get-criteria-category':

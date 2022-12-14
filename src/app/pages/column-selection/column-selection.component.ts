@@ -12,6 +12,7 @@ export class ColumnSelectionComponent implements OnInit , OnChanges {
   data: any;
   adding: any;
   page_id: string='3';
+  tmpList: any;
 
   constructor(
      private _activatedRoute: ActivatedRoute,
@@ -30,7 +31,8 @@ export class ColumnSelectionComponent implements OnInit , OnChanges {
   }
 
   ngOnChanges() {
-
+console.log('column changes');
+console.log(this.data);
   }
 
     doLeaving(a: any) {
@@ -44,6 +46,7 @@ export class ColumnSelectionComponent implements OnInit , OnChanges {
     buttonClicked(m: any) {
       this._router.navigate(['/edit-tenant-group',0]);
     }
+
 
     selectCriteria(m: any) {
           this.data.optionData.OPTIONID = m.OPTIONID
@@ -61,9 +64,15 @@ export class ColumnSelectionComponent implements OnInit , OnChanges {
 });
 }
 
+getData(d: any) {
+  console.log('ready to catch');
+  this.data = d;
+  console.log(this.data)
+} 
+
     getCriteriaCategory(i: any) {
           this.data.formData.CAT_ID=i;
-          this._dataService.postForm("get-criteria-category", this.data.formData).subscribe((data:any)=>{
+          this._dataService.postForm("get-feature-criteria-category", this.data.formData).subscribe((data:any)=>{
           this.data=data;
       });
     }

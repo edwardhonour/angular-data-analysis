@@ -1,16 +1,36 @@
         <app-local-top-navbar [id]="page_id" [data]="data"></app-local-top-navbar>
         <div class="row">
             <div class="col-md-3">
-                <app-column-accordion [id]="page_id" (buttonPressed)="getCriteriaCategory($event)"></app-column-accordion>
+                <div class="card mt-2">
+                    <div class="card-header">
+                        <h2 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 18px;">Building Data Categories</h2>
+                    </div>
+                    <div class="card-body">
+                        <app-column-accordion [data]="data" (getData)="getData($event)"></app-column-accordion>
+                    </div>
+                </div>
+                <div class="card mt-2">
+                    <div class="card-header">
+                        <h2 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 18px;">Dataframe Features Categories</h2>
+                    </div>
+                    <div class="card-body">
+                        <app-features-output-accordion  (buttonPressed)="getCriteriaCategory($event)"></app-features-output-accordion>
+                    </div>
+                </div>
             </div>
             <div class="col-md-9">
                 <div class="col-md-12 p-3">
                     <h1 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 32px;">Column Selection</h1>
-                    <h2 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 18px;">Select report columns</h2>
+<!--                    <h2 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 18px;">Select report columns</h2> -->
                 </div>
                 <div class="row">
                     <div class="col-md-6 p-2">
-                        <app-filters-panel [data]="data" (buttonClicked)="selectCriteria($event)"></app-filters-panel>
+                        <div *ngIf="data.options.length>0">
+                            <app-select-columns-form [data]="data" (getData)="getData($event)"></app-select-columns-form>
+                        </div>
+                        <div *ngIf="data.options2.length>0">
+                            <app-select-feature-columns-form [data]="data" (getData)="getData($event)"></app-select-feature-columns-form>
+                        </div>
                     </div>
                     <div class="col-md-5">
                         <app-count-panel [data]="data"></app-count-panel>

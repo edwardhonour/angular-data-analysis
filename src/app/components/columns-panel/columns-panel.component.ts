@@ -23,22 +23,24 @@ export class ColumnsPanelComponent implements OnInit, OnChanges {
       //
       // Remove a report column from the list.
       //
-      this.data.optionData.OPTIONID = m.OPTION_ID
+      this.data.optionData.OPTIONID=m.OPTION_ID;
       this.data.optionData.CAT_ID=m.ID;
       this._dataService.postForm("delete-criteria-column", this.data.optionData).subscribe((data:any)=>{
       this.data=data;
+      this.getData.emit(this.data);
     });
     }
 
     ngOnChanges() {
-        this.list=this.data;
+        console.log('passed to panel')
+    //    this.list=this.data.options;
     }
 
     @Output()
     buttonClicked: EventEmitter<string> = new EventEmitter<string>(); 
 
     @Output()
-    editClicked: EventEmitter<string> = new EventEmitter<any>(); 
+    getData: EventEmitter<any> = new EventEmitter<any>(); 
 
 }
 

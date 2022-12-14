@@ -18,7 +18,7 @@ export class DataService {
 
   constructor(private http: HttpClient) { 
 
-    this.production = 'Y';
+    this.production = 'N';
     this.localPath = "assets/data/index.php"
     this.remotePath = "https://myna-api.com/api/da.php"
   

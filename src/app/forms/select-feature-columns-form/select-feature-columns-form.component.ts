@@ -2,11 +2,11 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angu
 import { DataService } from 'src/app/data.service';
 
 @Component({
-  selector: 'app-select-columns-form',
-  templateUrl: './select-columns-form.component.html',
-  styleUrls: ['./select-columns-form.component.css']
+  selector: 'app-select-feature-columns-form',
+  templateUrl: './select-feature-columns-form.component.html',
+  styleUrls: ['./select-feature-columns-form.component.css']
 })
-export class SelectColumnsFormComponent implements OnInit, OnChanges {
+export class SelectFeatureColumnsFormComponent implements OnInit, OnChanges {
   constructor(private _dataService: DataService) { }
   
       @Input() format: any;  // JSON Array laying out the structure of the component.
@@ -25,20 +25,18 @@ export class SelectColumnsFormComponent implements OnInit, OnChanges {
       // 
       // Select a critera option from the list.
       //
-          this.data.optionData.OPTIONID = m.OPTIONID;
-          this.data.optionData.OPTION_TYPE='COLUMN';
-          this.data.optionData.OPTION_SOURCE=m.OPTION_SOURCE;
-          this.data.optionData.OPTION_VALUE=m.OPTION_DSC;
-          this.tmpList=this.list;
-          this._dataService.postForm("select-criteria-column", this.data.optionData).subscribe((data:any)=>{
+          this.data.optionData.OPTIONID = m.OPTIONID
+          this.data.optionData.CAT_ID=m.OPTION_ID;
+          this.tmpList=this.data.options2;
+          this._dataService.postForm("select-criteria-feature-option", this.data.optionData).subscribe((data:any)=>{
           this.data=data;
-          this.data.options=this.tmpList;
+          this.data.options2=this.tmpList;
           this.getData.emit(this.data);
       });
     } 
 
     ngOnChanges() {
-        this.list=this.data.options;
+        this.list=this.data;
         console.log(this.list);
     }
 

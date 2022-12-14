@@ -45,6 +45,9 @@ import { FilterSelectionComponent } from './forms/filter-selection/filter-select
 import { SelectCriteriaFormComponent } from './forms/select-criteria-form/select-criteria-form.component';
 import { SelectFilterFormComponent } from './forms/select-filter-form/select-filter-form.component';
 import { SelectColumnsFormComponent } from './forms/select-columns-form/select-columns-form.component';
+import { FeaturesOutputAccordionComponent } from './components/features-output-accordion/features-output-accordion.component';
+import { SelectFeaturesFormComponent } from './components/select-features-form/select-features-form.component';
+import { SelectFeatureColumnsFormComponent } from './forms/select-feature-columns-form/select-feature-columns-form.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +86,10 @@ import { SelectColumnsFormComponent } from './forms/select-columns-form/select-c
     FilterSelectionComponent,
     SelectCriteriaFormComponent,
     SelectFilterFormComponent,
-    SelectColumnsFormComponent
+    SelectColumnsFormComponent,
+    FeaturesOutputAccordionComponent,
+    SelectFeaturesFormComponent,
+    SelectFeatureColumnsFormComponent
   ],
   imports: [
     BrowserModule,

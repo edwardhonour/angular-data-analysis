@@ -12,13 +12,13 @@
         </div>
         <table class="table table-condensed table-striped" *ngIf="list.length>0">
          <tbody>
-           <tr  class="p-1" *ngFor="let m of list | filter: term | paginate: { currentPage: p , itemsPerPage: 10 }"> 
-                    <td [innerHTML]="m['SHORT_NAME']" class="p-1"></td>
-                    <td>
-                        <button style="width:80px;" class="btn btn-dark m-1" (click)="include(m);">(+)</button>
-                        <button style="width:80px;" class="btn btn-dark m-1" (click)="exclude(m);">(-)</button>
-                    </td>
-            </tr> 
+            <tr  class="p-1" *ngFor="let m of list | filter: term | paginate: { currentPage: p , itemsPerPage: 10 }"> 
+                <td [innerHTML]="m['SHORT_NAME']" class="p-1"></td>
+                <td style="width:220px;">
+                    <button style="width:80px;" class="btn btn-dark m-1" (click)="include(m);">Include</button>
+                    <button style="width:80px;" class="btn btn-danger m-1" (click)="exclude(m);">Exclude</button>
+                </td>
+            </tr>
           </tbody> 
         </table>
        <div>

@@ -2,9 +2,21 @@
     <div class="card-header">
         Columns Selected
     </div>
-        <div *ngIf="data.column_selection.length>0" class="card-body">
-            *Columns Panel*
-        </div>
+    <div *ngIf="data.column_selection.length>0" class="card-body">
+                 <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-condensed table-striped">
+                         <tbody>
+                           <tr  class="p-2" *ngFor="let m of data.column_selection"> 
+                                <td style="font-size:12px; width:100px;" [innerHTML]="m['SCORING_TYPE']"></td>
+                                <td style="font-size:12px;" [innerHTML]="m.COLUMN_DSC"></td>
+                                <td style="font-size:18px; width:30px;" (click)="deleteColumn(m);">(-)</td>
+                            </tr> 
+                          </tbody> 
+                        </table>
+                    </div>
+                </div>
+            </div>
         <div *ngIf="data.column_selection.length==0" class="card-body">
                 <p>No columns selected!</p>
         </div>
