@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angu
 import { DataService } from 'src/app/data.service';
 
 @Component({
-  selector: 'app-criteria-search',
+  selector: '.app-criteria-search',
   templateUrl: './criteria-search.component.html',
   styleUrls: ['./criteria-search.component.css']
 })

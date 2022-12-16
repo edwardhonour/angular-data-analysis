@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-threat-dataset',
+  selector: '.app-threat-dataset',
   templateUrl: './threat-dataset.component.html',
   styleUrls: ['./threat-dataset.component.css']
 })

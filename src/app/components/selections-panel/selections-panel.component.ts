@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angu
 import { DataService } from 'src/app/data.service';
 
 @Component({
-  selector: 'app-selections-panel',
+  selector: '.app-selections-panel',
   templateUrl: './selections-panel.component.html',
   styleUrls: ['./selections-panel.component.css']
 })

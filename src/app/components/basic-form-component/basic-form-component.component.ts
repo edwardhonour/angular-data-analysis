@@ -1,3 +1,7 @@
+//-==================================================================================================
+// This is a basic form component that can be used to create a form that can be used in a modal dialog.
+//-==================================================================================================
+
 import { Component, OnInit, HostListener, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/data.service';

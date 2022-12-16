@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DataService } from 'src/app/data.service';
 
 @Component({
-  selector: 'app-filter-accordion',
+  selector: '.app-filter-accordion',
   templateUrl: './filter-accordion.component.html',
   styleUrls: ['./filter-accordion.component.css']
 })

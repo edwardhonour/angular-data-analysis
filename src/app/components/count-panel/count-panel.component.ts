@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angu
 import { DataService } from 'src/app/data.service';
 
 @Component({
-  selector: 'app-count-panel',
+  selector: '.app-count-panel',
   templateUrl: './count-panel.component.html',
   styleUrls: ['./count-panel.component.css']
 })

@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angu
 import { DataService } from 'src/app/data.service';
 
 @Component({
-  selector: 'app-criteria-panel',
+  selector: '.app-criteria-panel',
   templateUrl: './criteria-panel.component.html',
   styleUrls: ['./criteria-panel.component.css']
 })
@@ -21,9 +21,6 @@ export class CriteriaPanelComponent implements OnInit, OnChanges {
 
 
     buttonClick(m: any) {
-      // 
-      // Select a critera option from the list.
-      //
           this.data.optionData.OPTIONID = m.OPTIONID
           this.data.optionData.CAT_ID=m.OPTION_ID;
           this._dataService.postForm("select-criteria-option", this.data.optionData).subscribe((data:any)=>{

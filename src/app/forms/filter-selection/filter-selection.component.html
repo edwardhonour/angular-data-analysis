@@ -1,11 +1,11 @@
 <div class="row">
     <div class="col-md-12">
-        <div class="row p-2 mt-2 mb-2">
+        <div class="row p-2 mt-2 mb-1">
             <div class="col-md-12">
-                <h2>{{ title }}</h2>
-            </div>
+                <h2 style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size:24px;">{{ data.section_title }}</h2>
+           </div>
         </div>
-        <div *ngIf="list.length>0" class="row m-1 p-3">
+        <div *ngIf="list.length>0" class="row m-1 p-1">
             <div class="col-lg-6">
                 Search: <input style="max-width:320px;" class="form-control" type="text" id="term" name="term" [(ngModel)]="term"> 
             </div>
@@ -15,8 +15,8 @@
             <tr  class="p-1" *ngFor="let m of list | filter: term | paginate: { currentPage: p , itemsPerPage: 10 }"> 
                 <td [innerHTML]="m['SHORT_NAME']" class="p-1"></td>
                 <td style="width:220px;">
-                    <button style="width:80px;" class="btn btn-dark m-1" (click)="include(m);">Include</button>
-                    <button style="width:80px;" class="btn btn-danger m-1" (click)="exclude(m);">Exclude</button>
+                    <button style="width:80px;" class="btn btn-dark m-1" (click)="include(m);">Inc</button>
+                    <button style="width:80px;" class="btn btn-danger m-1" (click)="exclude(m);">Exc</button>
                 </td>
             </tr>
           </tbody> 

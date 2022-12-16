@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angu
 import { DataService } from 'src/app/data.service';
 
 @Component({
-  selector: 'app-select-criteria-form',
+  selector: '.app-select-criteria-form',
   templateUrl: './select-criteria-form.component.html',
   styleUrls: ['./select-criteria-form.component.css']
 })

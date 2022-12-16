@@ -1,4 +1,4 @@
-        <app-local-top-navbar [id]="page_id" [data]="data"></app-local-top-navbar>
+        <div class="app-local-top-navbar" [id]="page_id" [data]="data"></div>
         <div class="row">
             <div class="col-md-3">
                 <div class="card mt-2">
@@ -6,7 +6,7 @@
                     <h2 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 18px;">Filter Categories</h2>
                 </div>
                 <div class="card-body">
-                    <app-filter-accordion [data]="data" (getData)="getData($event)"></app-filter-accordion>
+                    <div class="app-filter-accordion" [data]="data" (getData)="getAllData($event)"></div>
                 </div>
                 </div>
             </div>
@@ -17,13 +17,10 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6 p-2">
-                        <app-filter-selection [data]="data" (getData)="getData($event)"></app-filter-selection>
+                        <div class="app-filter-selection" [data]="data" (getData)="getData($event)"></div>
                     </div>
                     <div class="col-md-5">
-                        <app-count-panel [data]="data" (getData)="getData($event)"></app-count-panel>
-                        <app-selections-panel [data]="data" (getData)="getData($event)"></app-selections-panel>
-                        <app-filters-panel [data]="data" (getData)="getData($event)"></app-filters-panel>
-                        <app-columns-panel [data]="data" (getData)="getData($event)"></app-columns-panel>
+     
                     </div>
                 </div>
             </div>

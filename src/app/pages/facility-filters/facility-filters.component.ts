@@ -30,7 +30,18 @@ export class FacilityFiltersComponent implements OnInit, OnChanges {
   }
 
   getData(d: any) {
-      this.data = d;
+    let tmpOptions: any;
+    let tmpList: any;
+    console.log('ready to catch');
+    tmpOptions=this.data.options;
+    this.data = d;
+    this.data.options=tmpOptions;
+    console.log('catched');
+    console.log(this.data)
+  } 
+
+  getAllData(d: any) {
+    this.data = d;
   } 
 
   ngOnChanges() {

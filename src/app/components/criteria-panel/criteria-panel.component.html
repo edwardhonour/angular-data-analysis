@@ -10,8 +10,8 @@
            <tr  class="p-2" *ngFor="let m of data.options"> 
                 <td *ngIf="m.DISPLAY_LEVEL!='0'" style="font-size:12px;" [innerHTML]="m.OPTION_DSC"></td>
                 <td *ngIf="m.DISPLAY_LEVEL=='0'" class="border-primary" style="font-size:16px;" [innerHTML]="m.OPTION_DSC"></td>
-                <td *ngIf="m.DISPLAY_LEVEL!='0'" (click)="buttonClick(m);">(+)</td>
-                <td *ngIf="m.DISPLAY_LEVEL=='0'"></td>
+                <td style="width:40px;" *ngIf="m.DISPLAY_LEVEL!='0'" (click)="buttonClick(m);">(+)</td>
+                <td style="width:40px;" *ngIf="m.DISPLAY_LEVEL=='0'"></td>
             </tr> 
           </tbody> 
         </table>

@@ -4,7 +4,7 @@ import { DataService } from 'src/app/data.service';
 
 
 @Component({
-  selector: 'app-column-selection',
+  selector: '.app-column-selection',
   templateUrl: './column-selection.component.html',
   styleUrls: ['./column-selection.component.css']
 })
@@ -61,12 +61,21 @@ console.log(this.data);
     this.data.optionData.CAT_ID=m.OPTION_ID;
     this._dataService.postForm("delete-criteria-category", this.data.optionData).subscribe((data:any)=>{
     this.data=data;
-});
+   });
 }
 
 getData(d: any) {
+  let tmpOptions: any;
+  let tmpList: any;
   console.log('ready to catch');
+  tmpList=this.data.options2;
+  tmpOptions=this.data.options;
+
   this.data = d;
+
+  this.data.options=tmpOptions;
+  this.data.options2=tmpList;
+  console.log('catched');
   console.log(this.data)
 } 
 

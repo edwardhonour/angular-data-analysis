@@ -11,6 +11,7 @@ export class LandingPageComponent implements OnInit, OnChanges {
   data: any;
   adding: any;
   page_id: string='1';
+  panel_id: string='1';
 
   constructor(
      private _activatedRoute: ActivatedRoute,
@@ -32,6 +33,10 @@ export class LandingPageComponent implements OnInit, OnChanges {
     console.log(this.data);
   }
 
+  getAllData(d: any) {
+    this.data = d;
+  } 
+
     doLeaving(a: any) {
       console.log("I am leaving ");
     }
@@ -44,7 +49,10 @@ export class LandingPageComponent implements OnInit, OnChanges {
       this._router.navigate(['/edit-tenant-group',0]);
     }
 
-
+    changePage(m:any){
+      this.page_id=m;
+      this.data.options=[];
+    }
 
   selectOperator(m: any) {
       //
@@ -87,10 +95,41 @@ export class LandingPageComponent implements OnInit, OnChanges {
           this.data=data;
       });
     }
-    getData(m: any) {
-      this.data=m;
-    }
-   
+
+getData(d: any) {
+  let tmpOptions: any;
+  let tmpList: any;
+  console.log('ready to catch');
+  tmpOptions=this.data.options;
+  this.data = d;
+  this.data.options=tmpOptions;
+  console.log('catched');
+  console.log(this.data)
+} 
+  
+getFeaturesData(d: any) {
+  let tmpOptions: any;
+  let tmpList: any;
+  tmpOptions=this.data.options;
+  this.data = d;
+  console.log('getFeaturesData catched');
+  console.log(this.data)
+  this.data.section_title="Select Features";
+  this.panel_id='2';
+} 
+
+getColumnsData(d: any) {
+  let tmpOptions: any;
+  let tmpList: any;
+  console.log('getColumnsData');
+  tmpOptions=this.data.options;
+  this.data = d;
+  this.data.section_title="Select Columns";
+  console.log('catched');
+  console.log(this.data)
+  this.panel_id='1';
+} 
+
     getCriteriaSearch(i: any) {
       this.data.formData.CAT_ID=i;
       this._dataService.postForm("get-criteria-search", this.data.formData).subscribe((data:any)=>{

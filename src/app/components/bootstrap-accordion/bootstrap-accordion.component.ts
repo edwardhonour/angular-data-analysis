@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-bootstrap-accordion',
+  selector: '.app-bootstrap-accordion',
   templateUrl: './bootstrap-accordion.component.html',
   styleUrls: ['./bootstrap-accordion.component.css']
 })

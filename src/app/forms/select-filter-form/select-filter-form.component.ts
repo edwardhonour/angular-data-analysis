@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { DataService } from 'src/app/data.service';
 @Component({
-  selector: 'app-select-filter-form',
+  selector: '.app-select-filter-form',
   templateUrl: './select-filter-form.component.html',
   styleUrls: ['./select-filter-form.component.css']
 })

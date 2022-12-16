@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angu
 import { DataService } from 'src/app/data.service';
 
 @Component({
-  selector: 'app-columns-panel',
+  selector: '.app-columns-panel',
   templateUrl: './columns-panel.component.html',
   styleUrls: ['./columns-panel.component.css']
 })
@@ -14,6 +14,8 @@ export class ColumnsPanelComponent implements OnInit, OnChanges {
       p: any;                // Pagination Page
       term: any;             // Search Filter
       list: any;
+      tmpOptions: any;
+      tmpOptions2: any;
 
       ngOnInit(): void {
 
@@ -25,8 +27,12 @@ export class ColumnsPanelComponent implements OnInit, OnChanges {
       //
       this.data.optionData.OPTIONID=m.OPTION_ID;
       this.data.optionData.CAT_ID=m.ID;
+      this.tmpOptions=this.data.options;
+      this.tmpOptions2=this.data.options2;
       this._dataService.postForm("delete-criteria-column", this.data.optionData).subscribe((data:any)=>{
       this.data=data;
+      this.data.options=this.tmpOptions;
+      this.data.options2=this.tmpOptions2;
       this.getData.emit(this.data);
     });
     }

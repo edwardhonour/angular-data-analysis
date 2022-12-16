@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angu
 import { DataService } from 'src/app/data.service';
 
 @Component({
-  selector: 'app-select-columns-form',
+  selector: '.app-select-columns-form',
   templateUrl: './select-columns-form.component.html',
   styleUrls: ['./select-columns-form.component.css']
 })
@@ -29,7 +29,7 @@ export class SelectColumnsFormComponent implements OnInit, OnChanges {
           this.data.optionData.OPTION_TYPE='COLUMN';
           this.data.optionData.OPTION_SOURCE=m.OPTION_SOURCE;
           this.data.optionData.OPTION_VALUE=m.OPTION_DSC;
-          this.tmpList=this.list;
+          this.tmpList=this.data.options;
           this._dataService.postForm("select-criteria-column", this.data.optionData).subscribe((data:any)=>{
           this.data=data;
           this.data.options=this.tmpList;
@@ -39,6 +39,7 @@ export class SelectColumnsFormComponent implements OnInit, OnChanges {
 
     ngOnChanges() {
         this.list=this.data.options;
+console.log('select-columns-form.component.ts: ngOnChanges()');
         console.log(this.list);
     }
 
