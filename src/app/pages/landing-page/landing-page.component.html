@@ -13,11 +13,7 @@
         <div class="row">
             <div class="col-md-3">
                 <!-- Left Navigation Section -->
-                <app-test-accordion></app-test-accordion>
-                <div *ngIf="page_id=='1'" class="app-bootstrap-accordion" [id]="page_id" (buttonPressed)="getCriteriaCategory($event)"></div>
-                <div *ngIf="page_id=='2'" class="app-filter-accordion" [data]="data" (getData)="getAllData($event)"></div>
-                <div *ngIf="page_id=='3'" class="app-column-accordion" [data]="data" (getData)="getColumnsData($event)"></div>
-                <div *ngIf="page_id=='3'" class="app-features-output-accordion" [data]="data" (getData)="getFeaturesData($event)"></div>
+                <div class="app-bootstrap-accordion" [accordion]="accordion" (buttonPressed)="getCriteriaCategory($event)"></div>
                 <div class="app-save-search m-3"></div>
                 <div class="app-share-report m-3"></div>
                 <div class="app-threat-dataset m-3"></div>
@@ -27,7 +23,8 @@
                 <div class="row">
                     <div class="col-md-6 p-2">
                         <!-- Criteria Selection Section -->
-                        <div class="card">
+
+                       <div class="card">
                             <div class="card-header" style="background-color:#e1e0d0">
                                 <div class="row">
                                     <div class="col-md-12 p-3">
@@ -41,10 +38,9 @@
                                 <div *ngIf="page_id=='1'" class="app-criteria-search" [data]="data" (searchData)="getData($event)"></div>
                                 <div *ngIf="page_id=='1'" class="app-select-criteria-form" [data]="data" (getData)="getData($event)"></div>
                                 <div *ngIf="page_id=='2'" class="app-filter-selection" [data]="data" (getData)="getData($event)"></div>
-                                <div *ngIf="page_id=='3'&&panel_id=='2'" class="app-select-feature-columns-form" [data]="data" (getData)="getData($event)"></div>
-                                <div *ngIf="page_id=='3'&&panel_id=='1'" class="app-select-columns-form" [data]="data" (getData)="getData($event)"></div>
+                                <div *ngIf="page_id=='3'" class="app-select-columns-form" [data]="data" (getData)="getData($event)"></div>
                             </div>
-                        </div>
+                        </div> 
                     </div>
                     <div class="col-md-5">
                         <!-- Selected Criteria Section -->

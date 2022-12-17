@@ -1,17 +1,28 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 
 @Component({
   selector: '.app-bootstrap-accordion',
   templateUrl: './bootstrap-accordion.component.html',
   styleUrls: ['./bootstrap-accordion.component.css']
 })
-export class BootstrapAccordionComponent implements OnInit {
+export class BootstrapAccordionComponent implements OnInit, OnChanges {
 
   @Input() user: any;
+  @Input() data: any;
+  @Input() accordion: any;
   loading: string='';
   url: any;
   page: string = 'today.asp';
   constructor() { }
+
+  ngOnChange() {
+    console.log("ngChanges");
+  }
+
+  ngOnChanges() { 
+      console.log("bootstrap accordion ngChanges")
+      console.log(this.accordion);
+  }
 
   ngOnInit(): void {
 

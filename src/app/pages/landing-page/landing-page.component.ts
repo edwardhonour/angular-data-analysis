@@ -12,6 +12,7 @@ export class LandingPageComponent implements OnInit, OnChanges {
   adding: any;
   page_id: string='1';
   panel_id: string='1';
+  accordion: any;
 
   constructor(
      private _activatedRoute: ActivatedRoute,
@@ -22,6 +23,7 @@ export class LandingPageComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this._activatedRoute.data.subscribe(({ data }) => {
         this.data=data;
+        this.accordion=this.data.home_accordion;
         if (this.data.rnum!==undefined) {
           localStorage.setItem('rnum',this.data.rnum);
         }
@@ -30,12 +32,43 @@ export class LandingPageComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
+    if (this.page_id=='1'&&this.data.home_accordion!==undefined) {
+      this.accordion=this.data.home_accordion;
+    }
+    if (this.page_id=='2'&&this.data.filter_accordion!==undefined) {
+      this.accordion=this.data.filter_accordion;
+    }
+    if (this.page_id=='3'&&this.data.column_accordion!==undefined) {
+      this.accordion=this.data.column_accordion;
+    }
+
     console.log(this.data);
   }
 
-  getAllData(d: any) {
-    this.data = d;
-  } 
+  getCriteriaCategory(i: any) {
+    if (this.page_id=='1') {
+      this.data.formData.CAT_ID=i;
+      this._dataService.postForm("get-criteria-category", this.data.formData).subscribe((data:any)=>{
+        this.data=data;
+      });
+    }
+    if (this.page_id=='2') {
+      console.log(this.page_id);
+      this.data.optionData.WEIGHT_ID=i;
+      this._dataService.postForm("get-filter-option", this.data.optionData).subscribe((data:any)=>{
+      this.data=data;
+      console.log(this.data.options);
+      });
+    }
+    if (this.page_id=='3') {
+        this.data.optionData.WEIGHT_ID=i;
+        this._dataService.postForm("get-column-option", this.data.optionData).subscribe((data:any)=>{
+            this.data=data;
+            console.log('get-column-option');
+        });
+      }
+  }
+
 
     doLeaving(a: any) {
       console.log("I am leaving ");
@@ -52,6 +85,18 @@ export class LandingPageComponent implements OnInit, OnChanges {
     changePage(m:any){
       this.page_id=m;
       this.data.options=[];
+      if (m=='1') {
+          this.accordion=this.data.home_accordion;
+          console.log(this.data.accordion);
+      }
+      if (m=='2') {
+        this.accordion=this.data.filter_accordion;
+        console.log(this.data.accordion);
+      }
+      if (m=='3') {
+        this.accordion=this.data.column_accordion;
+        console.log(this.data.accordion);
+      }
     }
 
   selectOperator(m: any) {
@@ -89,12 +134,7 @@ export class LandingPageComponent implements OnInit, OnChanges {
   });
   }
 
-    getCriteriaCategory(i: any) {
-          this.data.formData.CAT_ID=i;
-          this._dataService.postForm("get-criteria-category", this.data.formData).subscribe((data:any)=>{
-          this.data=data;
-      });
-    }
+
 
 getData(d: any) {
   let tmpOptions: any;
