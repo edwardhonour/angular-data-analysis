@@ -1,0 +1,14 @@
+<div class="accordion accordion-flush" id="accordionFlushExample">
+      <div *ngFor="let m of accordion.sections" class="accordion-item">
+        <h2 class="accordion-header border" id="flush-heading{{ m.id }}">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#flush-collapse'+m.id" aria-expanded="false" [attr.aria-controls]="'flush-collapse'+m.id">
+              <span style="font-family:Arial, Helvetica, sans-serif">Facility Overview</span>
+          </button>
+        </h2>
+        <div [attr.id]="'flush-collapse'+m.id" class="accordion-collapse collapse" aria-labelledby="'flush-heading'+m.id" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+                <div *ngFor="let n of m.items" (click)="pressButton(n.button);" class="btn btn-light border" style="width:100%; text-align: left;">{{ n.title }}</div>
+            </div>
+        </div>
+    </div>
+</div>

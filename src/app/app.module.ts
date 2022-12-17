@@ -25,8 +25,6 @@ import { SelectionsPanelComponent } from './components/selections-panel/selectio
 import { FiltersPanelComponent } from './components/filters-panel/filters-panel.component';
 import { ColumnsPanelComponent } from './components/columns-panel/columns-panel.component';
 import { CriteriaPanelComponent } from './components/criteria-panel/criteria-panel.component';
-import { FacilityFiltersComponent } from './pages/facility-filters/facility-filters.component';
-import { ColumnSelectionComponent } from './pages/column-selection/column-selection.component';
 import { ReportOutputComponent } from './pages/report-output/report-output.component';
 import { ExcelOutputComponent } from './pages/excel-output/excel-output.component';
 import { MapOutputComponent } from './pages/map-output/map-output.component';
@@ -48,6 +46,7 @@ import { SelectColumnsFormComponent } from './forms/select-columns-form/select-c
 import { FeaturesOutputAccordionComponent } from './components/features-output-accordion/features-output-accordion.component';
 import { SelectFeaturesFormComponent } from './components/select-features-form/select-features-form.component';
 import { SelectFeatureColumnsFormComponent } from './forms/select-feature-columns-form/select-feature-columns-form.component';
+import { TestAccordionComponent } from './component/test-accordion/test-accordion.component';
 
 @NgModule({
   declarations: [
@@ -67,8 +66,6 @@ import { SelectFeatureColumnsFormComponent } from './forms/select-feature-column
     FiltersPanelComponent,
     ColumnsPanelComponent,
     CriteriaPanelComponent,
-    FacilityFiltersComponent,
-    ColumnSelectionComponent,
     ReportOutputComponent,
     ExcelOutputComponent,
     MapOutputComponent,
@@ -89,7 +86,8 @@ import { SelectFeatureColumnsFormComponent } from './forms/select-feature-column
     SelectColumnsFormComponent,
     FeaturesOutputAccordionComponent,
     SelectFeaturesFormComponent,
-    SelectFeatureColumnsFormComponent
+    SelectFeatureColumnsFormComponent,
+    TestAccordionComponent
   ],
   imports: [
     BrowserModule,

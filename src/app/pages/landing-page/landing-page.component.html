@@ -13,6 +13,7 @@
         <div class="row">
             <div class="col-md-3">
                 <!-- Left Navigation Section -->
+                <app-test-accordion></app-test-accordion>
                 <div *ngIf="page_id=='1'" class="app-bootstrap-accordion" [id]="page_id" (buttonPressed)="getCriteriaCategory($event)"></div>
                 <div *ngIf="page_id=='2'" class="app-filter-accordion" [data]="data" (getData)="getAllData($event)"></div>
                 <div *ngIf="page_id=='3'" class="app-column-accordion" [data]="data" (getData)="getColumnsData($event)"></div>
