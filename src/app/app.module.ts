@@ -29,7 +29,6 @@ import { ReportOutputComponent } from './pages/report-output/report-output.compo
 import { ExcelOutputComponent } from './pages/excel-output/excel-output.component';
 import { MapOutputComponent } from './pages/map-output/map-output.component';
 import { RiskOutputComponent } from './pages/risk-output/risk-output.component';
-import { FilterAccordionComponent } from './components/filter-accordion/filter-accordion.component';
 import { ColumnAccordionComponent } from './components/column-accordion/column-accordion.component';
 import { SaveSearchComponent } from './components/save-search/save-search.component';
 import { ShareReportComponent } from './components/share-report/share-report.component';
@@ -43,10 +42,7 @@ import { FilterSelectionComponent } from './forms/filter-selection/filter-select
 import { SelectCriteriaFormComponent } from './forms/select-criteria-form/select-criteria-form.component';
 import { SelectFilterFormComponent } from './forms/select-filter-form/select-filter-form.component';
 import { SelectColumnsFormComponent } from './forms/select-columns-form/select-columns-form.component';
-import { FeaturesOutputAccordionComponent } from './components/features-output-accordion/features-output-accordion.component';
 import { SelectFeaturesFormComponent } from './components/select-features-form/select-features-form.component';
-import { SelectFeatureColumnsFormComponent } from './forms/select-feature-columns-form/select-feature-columns-form.component';
-import { TestAccordionComponent } from './component/test-accordion/test-accordion.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +66,6 @@ import { TestAccordionComponent } from './component/test-accordion/test-accordio
     ExcelOutputComponent,
     MapOutputComponent,
     RiskOutputComponent,
-    FilterAccordionComponent,
     ColumnAccordionComponent,
     SaveSearchComponent,
     ShareReportComponent,
@@ -84,10 +79,7 @@ import { TestAccordionComponent } from './component/test-accordion/test-accordio
     SelectCriteriaFormComponent,
     SelectFilterFormComponent,
     SelectColumnsFormComponent,
-    FeaturesOutputAccordionComponent,
     SelectFeaturesFormComponent,
-    SelectFeatureColumnsFormComponent,
-    TestAccordionComponent
   ],
   imports: [
     BrowserModule,
