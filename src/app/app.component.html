@@ -1,6 +1,9 @@
     <div class="container-fluid p-3" style="background-color:#17213f">
         <app-mist-header [user]="data" (leavingPage)="doLeaving($event);"></app-mist-header>
-        <div class="container-fluid" style="background-color: whitesmoke; min-height: 300px;">   
+        <div *ngIf="displayLoadingIndicator==true" class="container-fluid" style="background-color: whitesmoke; min-height: 600px;">
+            <div class="spinner"></div>
+        </div>
+        <div class="container-fluid" style="background-color: whitesmoke; min-height: 600px;">  
             <router-outlet></router-outlet>
             <app-mist-footer></app-mist-footer>
         </div>

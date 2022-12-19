@@ -1,21 +1,29 @@
 <div class="row">
     <div class="col-md-12">
-        <div class="row p-2 mt-2 mb-2">
+        <div class="row p-2 mt-2 mb-1">
             <div class="col-md-12">
-                <h2 style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size:18px;">{{ data.section_title }}</h2>
+                <h2 style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size:24px;">{{ data.section_title }}</h2>
+           </div>
+        </div>
+        <div *ngIf="list.length>0" class="row m-1 p-1">
+            <div class="col-lg-6">
+                Search: <input style="max-width:320px;" class="form-control" type="text" id="term" name="term" [(ngModel)]="term"> 
             </div>
         </div>
-        <table>
+        <table class="table table-condensed table-striped" *ngIf="list.length>0">
          <tbody>
-           <tr  class="p-2" *ngFor="let m of data.options"> 
-                <td *ngIf="m.DISPLAY_LEVEL!='0'" style="font-size:12px;" [innerHTML]="m.OPTION_DSC"></td>
-                <td *ngIf="m.DISPLAY_LEVEL=='0'" class="border-primary" style="font-size:16px;" [innerHTML]="m.SHORT_NAME"></td>
-                <td *ngIf="m.DISPLAY_LEVEL!='0'" (click)="buttonClick(m);">(+)</td>
-                <td *ngIf="m.DISPLAY_LEVEL!='0'" (click)="buttonClick(m);">(-)</td>
-                <td *ngIf="m.DISPLAY_LEVEL=='0'"></td>
-                <td *ngIf="m.DISPLAY_LEVEL=='0'"></td>
-            </tr> 
+            <tr  class="p-1" *ngFor="let m of list | filter: term | paginate: { currentPage: p , itemsPerPage: 10 }"> 
+                <td [innerHTML]="m['SHORT_NAME']" class="p-1"></td>
+                <td style="width:220px;">
+                    <button style="width:80px;" class="btn btn-dark m-1" (click)="include(m);">Inc</button>
+                    <button style="width:80px;" class="btn btn-danger m-1" (click)="exclude(m);">Exc</button>
+                </td>
+            </tr>
           </tbody> 
         </table>
+       <div>
+            <paging-controls *ngIf="list.length>0" (pageChange)="p = $event" [isItemsPerPage]="false"  
+            class="my-pagination"></paging-controls> 
+        </div> 
     </div>
 </div>
